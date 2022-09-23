@@ -1,6 +1,12 @@
 import React from 'react';
 
 function MyPageDeleteAccount() {
+  const onDeleteAccount = () => {
+    // 로그인쪽 상태 작업 되면 리코일로 가져와서 적용할 것
+    alert('회원 탈퇴 성공');
+    // -> 새로고침? 메인으로 이동?
+  };
+
   return (
     <div>
       회원탈퇴
@@ -11,9 +17,11 @@ function MyPageDeleteAccount() {
           계정으로 재가입 시 기존에 가지고 있던 적립금은 복원되지 않으며, 사용 및 다운로드했던
           쿠폰도 사용 불가능합니다.회원 탈퇴를 진행하시겠습니까?
         </p>
-        <button>취소</button>
+        {/* 페이지라 취소 필요없는듯..? 기획팀에 확인필요 */}
+        {/* <button>취소</button> */}
+
         {/* 탈퇴 버튼 누르면 경고없이 바로 api */}
-        <button>탈퇴</button>
+        <button onClick={onDeleteAccount}>탈퇴</button>
       </div>
     </div>
   );
