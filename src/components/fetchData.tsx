@@ -1,14 +1,15 @@
 import { faker } from '@faker-js/faker';
-export type Person = {
+
+export type ReservationData = {
   id: string;
   title: string;
-  price: number;
-  people: number;
-  startDate: Date;
-  endDate: Date;
-  period: number;
+  price: string;
+  people: string;
+  startDate: string;
+  endDate: string;
+  period: string;
   status: '신청대기' | '예약완료' | '신청취소';
-  subRows?: Person[];
+  subRows?: ReservationData[];
 };
 
 const range = (len: number) => {
@@ -19,32 +20,45 @@ const range = (len: number) => {
   return arr;
 };
 
-const newPerson = (): Person => {
+const newReservationData = (): ReservationData => {
   return {
     id: faker.datatype.uuid(),
     title: faker.name.fullName(),
-    price: faker.datatype.number(1000000),
-    people: faker.datatype.number({ min: 1, max: 10 }),
-    startDate: faker.datatype.datetime({ min: 1577836800000, max: 1893456000000 }),
-    period: faker.datatype.number({ min: 1, max: 20 }),
-    endDate: faker.datatype.datetime({ min: 1577836800000, max: 1893456000000 }),
-    status: faker.helpers.shuffle<Person['status']>(['신청대기', '예약완료', '신청취소'])[0]!,
+    price: faker.datatype
+      .number(1000000)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      .concat('원'),
+    people: faker.datatype.number({ min: 1, max: 10 }).toString().concat('명'),
+    startDate: faker.date
+      .between('2020-01-01T00:00:00.000Z', '2030-01-01T00:00:00.000Z')
+      .toISOString()
+      .slice(0, -14),
+    period: faker.datatype.number({ min: 1, max: 20 }).toString().concat('일'),
+    endDate: faker.date
+      .between('2020-01-01T00:00:00.000Z', '2030-01-01T00:00:00.000Z')
+      .toISOString()
+      .slice(0, -14),
+    status: faker.helpers.shuffle<ReservationData['status']>([
+      '신청대기',
+      '예약완료',
+      '신청취소',
+    ])[0]!,
   };
 };
 
 export function makeData(...lens: number[]) {
-  const makeDataLevel = (depth = 0): Person[] => {
+  const makeDataLevel = (depth = 0): ReservationData[] => {
     const len = lens[depth]!;
-    return range(len).map((): Person => {
+    return range(len).map((): ReservationData => {
       return {
-        ...newPerson(),
+        ...newReservationData(),
         subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
       };
     });
   };
   return makeDataLevel();
 }
-
 const data = makeData(100);
 
 export async function fetchData(options: { pageIndex: number; pageSize: number }) {

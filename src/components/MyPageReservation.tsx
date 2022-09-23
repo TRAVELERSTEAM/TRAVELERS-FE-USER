@@ -7,48 +7,33 @@ import {
   flexRender,
   createColumnHelper,
 } from '@tanstack/react-table';
-import { fetchData, Person } from './fetchData';
+import { fetchData, ReservationData } from './fetchData';
+import styled from 'styled-components';
 
 export default function MyPageReservation() {
-  const columnHelper = createColumnHelper<Person>();
-  const columns = [
-    columnHelper.accessor('id', {
-      cell: (info) => info.getValue(),
-      header: '예약코드',
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor((row) => row.title, {
-      id: 'title',
-      cell: (info) => <i>{info.getValue()}</i>,
-      header: '상품명',
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('price', {
-      header: '결제 금액',
-      cell: (info) => info.renderValue(),
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('people', {
-      header: '인원',
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('startDate', {
-      header: '출발일',
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('endDate', {
-      header: '귀국일',
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('period', {
-      header: '여행 기간',
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('status', {
-      header: '여행/예약상태',
-      footer: (info) => info.column.id,
-    }),
+  const columnHelper = createColumnHelper<ReservationData>();
+  interface _TableKeys {
+    engKey: string;
+    korKey: string;
+  }
+  type TableKeys = _TableKeys;
+
+  //타입 나중에 수정 예정
+  const tableKeys: TableKeys | any = [
+    { engKey: 'id', korKey: '예약코드' },
+    { engKey: 'title', korKey: '상품명' },
+    { engKey: 'price', korKey: '결제 금액' },
+    { engKey: 'people', korKey: '인원' },
+    { engKey: 'startDate', korKey: '출발일' },
+    { engKey: 'endDate', korKey: '귀국일' },
+    { engKey: 'period', korKey: '여행 기간' },
+    { engKey: 'status', korKey: '여행/예약상태' },
   ];
+
+  //타입 나중에 수정 예정
+  const columns = tableKeys.map((tablekey: any) => {
+    return columnHelper.accessor(tablekey.engKey, { header: tablekey.korKey });
+  });
 
   const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
@@ -89,8 +74,9 @@ export default function MyPageReservation() {
 
   return (
     <div>
-      <table>
-        <thead>
+      예약 및 취소 조회
+      <StyledTable>
+        <thead className="thead">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -105,7 +91,7 @@ export default function MyPageReservation() {
             </tr>
           ))}
         </thead>
-        <tbody>
+        <tbody className="tbody">
           {table.getRowModel().rows.map((row) => {
             return (
               <tr key={row.id}>
@@ -120,7 +106,7 @@ export default function MyPageReservation() {
             );
           })}
         </tbody>
-      </table>
+      </StyledTable>
       <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
         {'<'}
       </button>
@@ -132,7 +118,36 @@ export default function MyPageReservation() {
       <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
         {'>'}
       </button>
-      {dataQuery.isFetching ? 'Loading...' : null}
+      {/* {dataQuery.isFetching ? 'Loading...' : null} */}
     </div>
   );
 }
+
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  text-align: center;
+  word-break: keep-all;
+  .thead {
+    th {
+      td {
+        padding: 8px;
+      }
+      padding: 10px;
+    }
+    tr {
+      border-bottom: 1px solid #000;
+      background-color: #f7f7f7;
+    }
+  }
+  .tbody {
+    tr {
+      border-bottom: 1px solid #cecece;
+      td {
+        padding: 20px;
+      }
+    }
+    & tr:last-child {
+      border-bottom: 1px solid #000;
+    }
+  }
+`;
