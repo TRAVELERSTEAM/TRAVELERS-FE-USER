@@ -7,10 +7,39 @@ import {
   flexRender,
   createColumnHelper,
 } from '@tanstack/react-table';
-import { fetchData, ReservationData } from './fetchData';
+import { fetchData, ReservationData } from '../fetchData';
 import styled from 'styled-components';
 
-export default function MyPageReservation() {
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  text-align: center;
+  word-break: keep-all;
+  .thead {
+    th {
+      td {
+        padding: 8px;
+      }
+      padding: 10px;
+    }
+    tr {
+      border-bottom: 1px solid #000;
+      background-color: #f7f7f7;
+    }
+  }
+  .tbody {
+    tr {
+      border-bottom: 1px solid #cecece;
+      td {
+        padding: 20px;
+      }
+    }
+    & tr:last-child {
+      border-bottom: 1px solid #000;
+    }
+  }
+`;
+
+export default function Reservation() {
   const columnHelper = createColumnHelper<ReservationData>();
   interface _TableKeys {
     engKey: string;
@@ -18,7 +47,7 @@ export default function MyPageReservation() {
   }
   type TableKeys = _TableKeys;
 
-  //타입 나중에 수정 예정
+  //FIXME 타입 나중에 수정 예정
   const tableKeys: TableKeys | any = [
     { engKey: 'id', korKey: '예약코드' },
     { engKey: 'title', korKey: '상품명' },
@@ -30,7 +59,7 @@ export default function MyPageReservation() {
     { engKey: 'status', korKey: '여행/예약상태' },
   ];
 
-  //타입 나중에 수정 예정
+  //FIXME 타입 나중에 수정 예정
   const columns = tableKeys.map((tablekey: any) => {
     return columnHelper.accessor(tablekey.engKey, { header: tablekey.korKey });
   });
@@ -122,32 +151,3 @@ export default function MyPageReservation() {
     </div>
   );
 }
-
-const StyledTable = styled.table`
-  border-collapse: collapse;
-  text-align: center;
-  word-break: keep-all;
-  .thead {
-    th {
-      td {
-        padding: 8px;
-      }
-      padding: 10px;
-    }
-    tr {
-      border-bottom: 1px solid #000;
-      background-color: #f7f7f7;
-    }
-  }
-  .tbody {
-    tr {
-      border-bottom: 1px solid #cecece;
-      td {
-        padding: 20px;
-      }
-    }
-    & tr:last-child {
-      border-bottom: 1px solid #000;
-    }
-  }
-`;

@@ -1,6 +1,7 @@
 import React from 'react';
 
-function MyPageWishList() {
+function WishList() {
+  //TODO 찜 목록 불러오고 화면에 뿌릴 것
   return (
     <div>
       찜 목록
@@ -9,4 +10,4 @@ function MyPageWishList() {
   );
 }
 
-export default MyPageWishList;
+export default WishList;

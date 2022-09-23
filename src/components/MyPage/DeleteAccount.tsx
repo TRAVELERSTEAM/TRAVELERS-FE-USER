@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MyPageDeleteAccount() {
+function DeleteAccount() {
   const onDeleteAccount = () => {
     // 로그인쪽 상태 작업 되면 리코일로 가져와서 적용할 것
     alert('회원 탈퇴 성공');
@@ -27,4 +27,4 @@ function MyPageDeleteAccount() {
   );
 }
 
-export default MyPageDeleteAccount;
+export default DeleteAccount;
