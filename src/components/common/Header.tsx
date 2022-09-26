@@ -279,6 +279,7 @@ const WholeMenu = styled.div`
   padding: 29px 45px;
   background-color: #fff;
   border-top: 3px solid #ddd;
+  z-index: 9999;
   li {
     margin-right: 22px;
     width: 234px;
