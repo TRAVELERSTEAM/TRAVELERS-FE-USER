@@ -17,6 +17,7 @@ const getWishs = () => {
   const wishFromLocal = localStorage.getItem(KEY_WISH);
   try {
     if (wishFromLocal === null) {
+      getWishsCache()
       throw new Error('wishFromLocal === null')
     }
 
@@ -44,4 +45,4 @@ const removeWish = (productId: string) => {
   setWishs(wishs.filter((el) => el !== productId))
 }
 
-export { hasWish, addWish, removeWish }
+export { hasWish, addWish, removeWish, getWishs }

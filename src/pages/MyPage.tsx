@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Reservation from '../components/MyPage/Reservation';
-import WishList from '../components/MyPage/WishList';
-import DeleteAccount from '../components/MyPage/DeleteAccount';
+import Reservation from '~/components/MyPage/Reservation';
+import WishList from '~/components/MyPage/WishList';
+import DeleteAccount from '~/components/MyPage/DeleteAccount';
 
 const StyledMyPage = styled.div``;
 const StyledMyPageList = styled.div``;
@@ -20,13 +20,13 @@ function MyPage() {
       </StyledMyPageList>
 
       {/* 예약 및 취소 조회  */}
-      <Reservation></Reservation>
+      {/* <Reservation></Reservation> */}
 
       {/* 찜 목록 */}
-      <WishList></WishList>
+      {/* <WishList></WishList> */}
 
       {/* 회원 탈퇴 */}
-      <DeleteAccount></DeleteAccount>
+      {/* <DeleteAccount></DeleteAccount> */}
     </StyledMyPage>
   );
 }
