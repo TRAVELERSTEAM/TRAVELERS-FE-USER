@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Reservation from '~/components/MyPage/Reservation';
-import WishList from '~/components/MyPage/WishList';
-import DeleteAccount from '~/components/MyPage/DeleteAccount';
+// import Reservation from '~/components/MyPage/Reservation';
+// import WishList from '~/components/MyPage/WishList';
+// import DeleteAccount from '~/components/MyPage/DeleteAccount';
 
 const StyledMyPage = styled.div``;
 const StyledMyPageList = styled.div``;
