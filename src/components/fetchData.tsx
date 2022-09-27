@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 
-export type ReservationData = {
-  id: string;
+export interface ReservationData {
+  readonly id: string;
   title: string;
   price: string;
   people: string;
@@ -10,7 +10,7 @@ export type ReservationData = {
   period: string;
   status: '신청대기' | '예약완료' | '신청취소';
   subRows?: ReservationData[];
-};
+}
 
 const range = (len: number) => {
   const arr = [];
