@@ -1,14 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Header() {
   return (
     <StyledHeader>
       <Wrap className="wrap">
-        <a className="logo" href="#">
+        <Link className="logo" to="/">
           <img src="/logo.png" alt="gotogether-logo" />
-        </a>
+        </Link>
         <SearchArea>
           <div className="search-box">
             <div className="search-icon">
@@ -18,24 +18,24 @@ function Header() {
           </div>
         </SearchArea>
         <UserMenu>
-          <a className="user-menu" href="#">
+          <Link className="user-menu" to="/find">
             <span className="cart-icon">
               <img src="/cart_icon.png" alt="mypage-icon" />
             </span>
             마이페이지
-          </a>
-          <a className="user-menu" href="#">
+          </Link>
+          <Link className="user-menu" to="/login">
             <span className="login-icon">
               <img src="/login_icon.png" alt="mypage-icon" />
             </span>
             로그인
-          </a>
-          <a className="user-menu" href="#">
+          </Link>
+          <Link className="user-menu" to="/signup">
             <span className="user-icon">
               <img src="/user_icon.png" alt="mypage-icon" />
             </span>
             회원가입
-          </a>
+          </Link>
         </UserMenu>
       </Wrap>
       <Wrap className="menu">
@@ -143,13 +143,13 @@ function Header() {
               </WholeMenu>
             </li>
             <li>
-              <a href="#">그룹별 여행</a>
+              <Link to="/groups">그룹별 여행</Link>
             </li>
             <li>
-              <a href="#">지역별 여행</a>
+              <Link to="/destination">지역별 여행</Link>
             </li>
             <li>
-              <a href="#">테마별 여행</a>
+              <Link to="/themes">테마별 여행</Link>
             </li>
           </ul>
         </Nav>

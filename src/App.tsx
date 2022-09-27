@@ -1,6 +1,6 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Header from './components/common/Header';
-import Main from '~/components/common/Main';
+import Main from '~/pages/MainPage';
 import Footer from '~/components/common/Footer';
 import MyPage from '~/pages/MyPage';
 import NotfoundPage from '~/pages/NotfoundPage';
