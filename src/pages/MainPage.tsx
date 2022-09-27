@@ -152,6 +152,39 @@ function MainPage() {
           </SlideWrap>
         </Inner>
       </DestinationWrap>
+      <ThemeWrap className="theme-items">
+        <Inner>
+          <h2>테마별 상품</h2>
+          <SlideWrap>
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={3}
+              slidesPerGroup={3}
+              loop={true}
+              loopFillGroupWithBlank={true}
+              navigation={true}
+              modules={[Navigation]}
+              speed={1000}
+            >
+              {testarr.map((_, index) => {
+                return (
+                  <SwiperSlide className="item">
+                    <a href="#">
+                      <div className="thumb">
+                        <img src="" alt="" />
+                        <span>{index + 1}</span>
+                      </div>
+                      <div className="desc">
+                        <span className="title">타이틀타이틀</span>
+                      </div>
+                    </a>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </SlideWrap>
+        </Inner>
+      </ThemeWrap>
     </Section>
   );
 }
@@ -248,6 +281,40 @@ const HotItemsWrap = styled.article`
 
 const DestinationWrap = styled.article`
   margin-bottom: 220px;
+  .item {
+    a {
+      .thumb {
+        width: 440px;
+        height: 291px;
+        background-color: #ddd;
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 20px;
+        }
+      }
+      .desc {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 122px 92px;
+        span {
+          font-weight: 600;
+          font-size: 40px;
+          line-height: 48px;
+          text-align: center;
+        }
+        .title {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+`;
+
+const ThemeWrap = styled.article`
+  margin-bottom: 240px;
   .item {
     a {
       .thumb {
