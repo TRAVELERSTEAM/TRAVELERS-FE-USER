@@ -11,6 +11,7 @@ import Reservation from './components/MyPage/Reservation';
 import Destination from './pages/Destination';
 import Groups from './pages/Groups';
 import Themes from './pages/Themes';
+import Notice from './pages/notice';
 
 function App() {
   return (
