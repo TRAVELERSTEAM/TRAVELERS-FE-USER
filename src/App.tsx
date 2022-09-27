@@ -18,6 +18,8 @@ import EditInfo from './pages/EditInfo';
 import SignUp from './pages/SignUpPage';
 import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/notice';
+import Inquiry from './pages/Inquiry';
+import Reference from './pages/Reference';
 
 function App() {
   return (

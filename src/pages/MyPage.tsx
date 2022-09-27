@@ -18,15 +18,6 @@ function MyPage() {
         <p>정보 수정</p>
         <p>회원 탈퇴</p>
       </StyledMyPageList>
-
-      {/* 예약 및 취소 조회  */}
-      {/* <Reservation></Reservation> */}
-
-      {/* 찜 목록 */}
-      {/* <WishList></WishList> */}
-
-      {/* 회원 탈퇴 */}
-      {/* <DeleteAccount></DeleteAccount> */}
     </StyledMyPage>
   );
 }
