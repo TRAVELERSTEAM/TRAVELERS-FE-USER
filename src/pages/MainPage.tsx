@@ -5,14 +5,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-// import Banner01 from '/banner01.svg';
-// import Banner02 from '/banner02.svg';
-// import Banner03 from '/banner03.svg';
 import TypeTest from '/banner_type-test.svg';
 import AiRecommend from '/banner_ai-recommend.svg';
 
 function MainPage() {
-  const count = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const testarr = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   return (
     <Section>
       <SlideWrap className="slide-wrap">
@@ -102,7 +99,7 @@ function MainPage() {
               modules={[Navigation]}
               speed={1000}
             >
-              {count.map((_, index) => {
+              {testarr.map((_, index) => {
                 return (
                   <SwiperSlide className="item">
                     <a href="#">
@@ -122,6 +119,39 @@ function MainPage() {
           </SlideWrap>
         </Inner>
       </HotItemsWrap>
+      <DestinationWrap className="destination-items">
+        <Inner>
+          <h2>지역별 상품</h2>
+          <SlideWrap>
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={3}
+              slidesPerGroup={3}
+              loop={true}
+              loopFillGroupWithBlank={true}
+              navigation={true}
+              modules={[Navigation]}
+              speed={1000}
+            >
+              {testarr.map((_, index) => {
+                return (
+                  <SwiperSlide className="item">
+                    <a href="#">
+                      <div className="thumb">
+                        <img src="" alt="" />
+                        <span>{index + 1}</span>
+                      </div>
+                      <div className="desc">
+                        <span className="title">타이틀타이틀</span>
+                      </div>
+                    </a>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </SlideWrap>
+        </Inner>
+      </DestinationWrap>
     </Section>
   );
 }
@@ -202,6 +232,40 @@ const HotItemsWrap = styled.article`
         flex-direction: column;
         align-items: center;
         padding: 11px 26px;
+        span {
+          font-weight: 600;
+          font-size: 40px;
+          line-height: 48px;
+          text-align: center;
+        }
+        .title {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+`;
+
+const DestinationWrap = styled.article`
+  margin-bottom: 220px;
+  .item {
+    a {
+      .thumb {
+        width: 440px;
+        height: 291px;
+        background-color: #ddd;
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 20px;
+        }
+      }
+      .desc {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 122px 92px;
         span {
           font-weight: 600;
           font-size: 40px;
