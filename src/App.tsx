@@ -17,6 +17,7 @@ import MyInfo from './pages/MyInfo';
 import EditInfo from './pages/EditInfo';
 import SignUp from './pages/SignUpPage';
 import SignUpSuccess from './pages/SignUpSuccess';
+import Notice from './pages/notice';
 
 function App() {
   return (
