@@ -1,13 +1,14 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Header() {
   return (
     <StyledHeader>
       <div className="wrap">
-        <a href="#">GO Together </a>
+        <NavLink to="/">GO Together </NavLink>
         <input placeholder="여행 그룹이나 상품을 검색해보세요" />
-        <a href="#"> 마이페이지 </a>
+        <NavLink to="mypage"> 마이페이지 </NavLink>
         <a href="#"> 로그인 </a>
         <a href="#"> 회원가입 </a>
       </div>
