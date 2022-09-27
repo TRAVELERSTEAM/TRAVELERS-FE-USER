@@ -8,6 +8,9 @@ import ProductDetailPage from '~/pages/ProductDetailPage';
 import DeleteAccount from './components/MyPage/DeleteAccount';
 import WishList from './components/MyPage/WishList';
 import Reservation from './components/MyPage/Reservation';
+import Destination from './pages/Destination';
+import Groups from './pages/Groups';
+import Themes from './pages/Themes';
 
 function App() {
   return (
