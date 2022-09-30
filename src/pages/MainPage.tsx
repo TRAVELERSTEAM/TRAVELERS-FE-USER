@@ -46,55 +46,63 @@ function MainPage() {
           </SwiperSlide>
         </Swiper>
       </SlideWrap>
-      <article className="group-list">
+      <GroupListWrap className="group-list">
         <Inner>
           <h2>그룹별</h2>
           <div>
-            <ul>
-              <li>
+            <ul className="list">
+              <li className="item">
                 <a href="#">
-                  <img src="" alt="" />
-                  <span>5070끼리</span>
+                  <div>
+                    <img src="/5070_icon.png" alt="5070끼리" />
+                  </div>
+                  <span className="item-title">5070끼리</span>
                 </a>
               </li>
-              <li>
+              <li className="item">
                 <a href="#">
-                  <img src="" alt="" />
-                  <span>2040끼리</span>
+                  <div>
+                    <img src="/2040_icon.png" alt="2040끼리" />
+                  </div>
+                  <span className="item-title">2040끼리</span>
                 </a>
               </li>
-              <li>
+              <li className="item">
                 <a href="#">
-                  <img src="" alt="" />
-                  <span>남자끼리</span>
+                  <div>
+                    <img src="/gentlemen_icon.png" alt="남자끼리" />
+                  </div>
+                  <span className="item-title">남자끼리</span>
                 </a>
               </li>
-              <li>
+              <li className="item">
                 <a href="#">
-                  <img src="" alt="" />
-                  <span>여자끼리</span>
+                  <div>
+                    <img src="ladies_icon.png" alt="여자끼리" />
+                  </div>
+                  <span className="item-title">여자끼리</span>
                 </a>
               </li>
-              <li>
+              <li className="item">
                 <a href="#">
-                  <img src="" alt="" />
-                  <span>자녀동반</span>
+                  <div>
+                    <img src="/withchild_icon.png" alt="자녀동반" />
+                  </div>
+                  <span className="item-title">자녀동반</span>
                 </a>
               </li>
             </ul>
           </div>
         </Inner>
-      </article>
+      </GroupListWrap>
       <HotItemsWrap className="hot-items">
         <Inner>
           <h2>실시간 인기 상품</h2>
-          <SlideWrap>
+          <ArticleSlideWrap>
             <Swiper
               spaceBetween={20}
               slidesPerView={3}
               slidesPerGroup={3}
-              loop={true}
-              loopFillGroupWithBlank={true}
               navigation={true}
               modules={[Navigation]}
               speed={1000}
@@ -116,18 +124,17 @@ function MainPage() {
                 );
               })}
             </Swiper>
-          </SlideWrap>
+          </ArticleSlideWrap>
         </Inner>
       </HotItemsWrap>
       <DestinationWrap className="destination-items">
         <Inner>
           <h2>지역별 상품</h2>
-          <SlideWrap>
+          <ArticleSlideWrap>
             <Swiper
               spaceBetween={20}
               slidesPerView={3}
               slidesPerGroup={3}
-              loop={true}
               loopFillGroupWithBlank={true}
               navigation={true}
               modules={[Navigation]}
@@ -149,18 +156,17 @@ function MainPage() {
                 );
               })}
             </Swiper>
-          </SlideWrap>
+          </ArticleSlideWrap>
         </Inner>
       </DestinationWrap>
       <ThemeWrap className="theme-items">
         <Inner>
           <h2>테마별 상품</h2>
-          <SlideWrap>
+          <ArticleSlideWrap>
             <Swiper
               spaceBetween={20}
               slidesPerView={3}
               slidesPerGroup={3}
-              loop={true}
               loopFillGroupWithBlank={true}
               navigation={true}
               modules={[Navigation]}
@@ -182,7 +188,7 @@ function MainPage() {
                 );
               })}
             </Swiper>
-          </SlideWrap>
+          </ArticleSlideWrap>
         </Inner>
       </ThemeWrap>
     </Section>
@@ -218,9 +224,35 @@ const Inner = styled.div`
   }
 `;
 const SlideWrap = styled.div`
+  .swiper {
+    margin: 0 auto;
+    width: 1920px;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 40%;
+    padding: 44px 20px;
+    width: 90px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #afafaf;
+    border-radius: 50%;
+  }
+  .swiper-button-prev::after {
+    content: url('/arrow_left.svg');
+  }
+  .swiper-button-next::after {
+    content: url('/arrow_right.svg');
+  }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+  }
   .swiper-button-prev {
+    left: 71px;
   }
   .swiper-button-next {
+    right: 71px;
   }
   .swiper-pagination {
     bottom: 53px;
@@ -241,8 +273,65 @@ const SlideWrap = styled.div`
   }
 `;
 
+const ArticleSlideWrap = styled.div`
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 0;
+    width: 90px;
+    height: 100%;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    background-color: rgba(217, 217, 217, 0.5);
+  }
+  .swiper-button-prev {
+    left: 0;
+  }
+  .swiper-button-next {
+    right: 0;
+  }
+  .swiper-button-disabled {
+    display: none;
+  }
+`;
+
 const Img = styled.img`
   width: 100%;
+`;
+
+const GroupListWrap = styled.div`
+  margin: 118px 0 240px 0;
+
+  .list {
+    display: flex;
+    .item {
+      margin-right: 40px;
+      &:last-child {
+        margin-right: 0;
+      }
+      a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 240px;
+          height: 240px;
+          border: 1px solid #000000;
+          border-radius: 10px;
+          box-sizing: border-box;
+        }
+        .item-title {
+          padding-top: 20px;
+          font-weight: 500;
+          font-size: 40px;
+          line-height: 48px;
+        }
+      }
+    }
+  }
 `;
 
 const HotItemsWrap = styled.article`
@@ -265,6 +354,8 @@ const HotItemsWrap = styled.article`
         flex-direction: column;
         align-items: center;
         padding: 11px 26px;
+        border: 2px solid #d9d9d9;
+        box-sizing: border-box;
         span {
           font-weight: 600;
           font-size: 40px;
@@ -299,6 +390,8 @@ const DestinationWrap = styled.article`
         flex-direction: column;
         align-items: center;
         padding: 122px 92px;
+        border: 2px solid #d9d9d9;
+        box-sizing: border-box;
         span {
           font-weight: 600;
           font-size: 40px;
@@ -314,7 +407,7 @@ const DestinationWrap = styled.article`
 `;
 
 const ThemeWrap = styled.article`
-  margin-bottom: 240px;
+  margin-bottom: 550px;
   .item {
     a {
       .thumb {
@@ -333,6 +426,8 @@ const ThemeWrap = styled.article`
         flex-direction: column;
         align-items: center;
         padding: 122px 92px;
+        border: 2px solid #d9d9d9;
+        box-sizing: border-box;
         span {
           font-weight: 600;
           font-size: 40px;
