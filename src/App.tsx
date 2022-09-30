@@ -11,6 +11,15 @@ import Reservation from './components/MyPage/Reservation';
 import Destination from './pages/Destination';
 import Groups from './pages/Groups';
 import Themes from './pages/Themes';
+import Login from './pages/LoginPage';
+import Find from './pages/Find';
+import MyInfo from './pages/MyInfo';
+import EditInfo from './pages/EditInfo';
+import SignUp from './pages/SignUpPage';
+import SignUpSuccess from './pages/SignUpSuccess';
+import Notice from './pages/notice';
+import Inquiry from './pages/Inquiry';
+import Reference from './pages/Reference';
 
 function App() {
   return (
