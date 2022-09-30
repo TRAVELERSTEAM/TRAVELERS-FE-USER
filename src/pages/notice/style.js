@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div``;
 
-export const BigBanner = styled.img`
-  width: 100vw;
+export const BigBanner = styled.div`
+  width: 100%;
   height: 608px;
-  top: 164px;
+  background-image: url(/img/bigBanner_4.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
 `;
 
 export const BtnDiv = styled.div`
@@ -41,25 +43,29 @@ export const ReferenceBtn = styled.button`
   cursor: pointer;
 `;
 
-export const TableDiv = styled.div`
-  display: flex;
+export const Table = styled.table`
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  margin: 0 auto;
+  width: 1360px;
 `;
 
 export const Thead = styled.thead`
   border-bottom: 2px solid #000;
+  width: 100%;
 `;
 
 export const Htr = styled.tr`
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 1285px;
+  align-items: center; */
+  width: 100%;
   height: 89px;
   padding-left: 25px;
   padding-right: 50px;
   border-bottom: 2px solid #000;
+  line-height: 89px;
 `;
 
 export const Th = styled.th`
@@ -69,17 +75,20 @@ export const Th = styled.th`
 
 export const Tbody = styled.tbody`
   border-bottom: 2px solid #000;
+  width: 100%;
 `;
 
 export const Btr = styled.tr`
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 1306px;
+  align-items: center; */
+  width: 100%;
   height: 89px;
   padding-left: 34px;
   padding-right: 20px;
   border-bottom: 1px solid #808080;
+  text-align: center;
+  line-height: 89px;
 `;
 
 export const Td = styled.td`
