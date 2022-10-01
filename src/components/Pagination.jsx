@@ -33,14 +33,14 @@ export const Container = styled.div`
   .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 20px;
     width: 1360px;
   }
 
   ul {
     list-style: none;
     padding: 0;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   ul.pagination li {
@@ -64,11 +64,23 @@ export const Container = styled.div`
     margin-right: 30px;
   }
 
+  ul.pagination li:nth-child(2) a {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+  }
+
   ul.pagination li:nth-last-child(2) {
     width: 30px;
     border: 1px solid;
     border-radius: 10px;
     margin-left: 30px;
+  }
+
+  ul.pagination li:nth-last-child(2) a {
+    width: 30px;
+    height: 30px;
+    text-align: center;
   }
 
   ul.pagination li:last-child {

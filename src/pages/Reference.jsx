@@ -1,8 +1,9 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import styled from 'styled-components';
 
-const Notice = () => {
+function Reference() {
   const navigate = useNavigate();
   const columns = ['번호', '제목', '글쓴이', '작성일자'];
   const data = Array(7)
@@ -57,9 +58,9 @@ const Notice = () => {
       <Pagination data={data} />
     </>
   );
-};
+}
 
-export default Notice;
+export default Reference;
 
 export const BigBanner = styled.div`
   width: 1921px;
@@ -95,19 +96,6 @@ export const NoticeBtn = styled.button`
   box-sizing: border-box;
   width: 680px;
   height: 123px;
-  border: none;
-  background-color: #0080c6;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-  cursor: pointer;
-`;
-
-export const ReferenceBtn = styled.button`
-  box-sizing: border-box;
-  width: 680px;
-  height: 123px;
   border: 1px solid #939598;
   border-top: none;
   border-left: none;
@@ -115,6 +103,19 @@ export const ReferenceBtn = styled.button`
   font-size: 28px;
   font-weight: 700;
   color: #000;
+  cursor: pointer;
+`;
+
+export const ReferenceBtn = styled.button`
+  box-sizing: border-box;
+  width: 680px;
+  height: 123px;
+  border: none;
+  background-color: #0080c6;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
   cursor: pointer;
 `;
 

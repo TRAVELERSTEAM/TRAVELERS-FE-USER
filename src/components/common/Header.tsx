@@ -136,7 +136,7 @@ function Header() {
                       <Link to="/notice">공지사항</Link>
                     </li>
                     <li className="menu_list">
-                      <a href="#">자료실</a>
+                      <Link to="/reference">자료실</Link>
                     </li>
                   </ul>
                 </li>
@@ -170,6 +170,7 @@ const StyledHeader = styled.header`
   }
   padding-top: 10px;
   width: 100%;
+  height: 140px;
   border-bottom: 3px solid #ddd;
 `;
 
