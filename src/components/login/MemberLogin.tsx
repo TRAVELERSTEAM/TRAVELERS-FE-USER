@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import {
@@ -8,8 +8,18 @@ import {
   LoginButton,
   LoginInput,
 } from '~/style/LoginCommonStyle';
+import { useCookies } from 'react-cookie';
+import { atom, useSetRecoilState } from 'recoil';
+import { useMutation } from 'react-query';
+import { loginApi } from '~/api/user/user';
+import { useNavigate } from 'react-router-dom';
 
-interface memberLogin {
+// export const isCookieAtom = atom({
+//   key: 'isCookie',
+//   default: false,
+// });
+
+export interface memberLogin {
   email: string;
   password: string;
 }
@@ -22,17 +32,46 @@ function MemberLogin() {
     formState: { errors },
   } = useForm<memberLogin>();
 
+  const { mutate, isLoading, isError } = useMutation((data: memberLogin) => loginApi(data));
+
+  // const [cookies, setCookie, removeCookie] = useCookies(['email']);
+  // const setCookieAtom = useSetRecoilState(isCookieAtom);
+  // const toggleCookie = setCookieAtom((prev) => !prev);
+
+  const navigate = useNavigate();
+
   const watchEmail = watch('email');
   const watchPassword = watch('password');
 
+  if (isLoading) return <div>loading...</div>;
+  if (isError) return <div>error...</div>;
+
   const onSubmit = (data: memberLogin) => {
-    console.log(data);
+    mutate(data);
+    // if (!isCookieAtom) {
+    //   setCookie('email', data.email);
+    // }
+    navigate('/');
   };
 
   const onSave = () => {
     const saveButton = document.querySelector('.save-button');
     saveButton!.classList.toggle('active');
+    // toggleCookie;
+    // console.log(toggleCookie);
   };
+
+  // const loginCheck = () => {
+  //   // const cookie = cookies.email;
+  // };
+
+  // useEffect(() => {
+  //   loginCheck();
+  // });
+
+  // const logOut = () => {
+  //   // removeCookie('email');
+  // };
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
