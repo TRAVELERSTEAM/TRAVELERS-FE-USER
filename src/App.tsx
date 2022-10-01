@@ -9,7 +9,7 @@ import DeleteAccount from './components/MyPage/DeleteAccount';
 import WishList from './components/MyPage/WishList';
 import Reservation from './components/MyPage/Reservation';
 import Destination from './pages/Destination';
-import Groups from './pages/Groups';
+import Groups from './pages/groups/Groups';
 import Themes from './pages/Themes';
 import Login from './pages/LoginPage';
 import Find from './pages/Find';
