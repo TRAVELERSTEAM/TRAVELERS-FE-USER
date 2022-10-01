@@ -1,4 +1,4 @@
-import bigBanner from '../../images/notice/210927_빅배너_4 1.png';
+// import bigBanner from '../../images/notice/210927_빅배너_4 1.png';
 import { useNavigate } from 'react-router-dom';
 import {
   BigBanner,
@@ -6,7 +6,7 @@ import {
   BtnDiv,
   NoticeBtn,
   ReferenceBtn,
-  TableDiv,
+  Table,
   Htr,
   Th,
   Btr,
@@ -14,6 +14,7 @@ import {
   Td,
   Thead,
 } from './style';
+import Pagination from '../../components/Pagination';
 
 const Notice = () => {
   const navigate = useNavigate();
@@ -27,26 +28,26 @@ const Notice = () => {
     }));
 
   return (
-    <Container>
-      <BigBanner src={bigBanner} alt="빅배너" />
-      <BtnDiv>
-        <NoticeBtn
-          onClick={() => {
-            navigate('/notice');
-          }}
-        >
-          공지사항
-        </NoticeBtn>
-        <ReferenceBtn
-          onClick={() => {
-            navigate('/');
-          }}
-        >
-          자료실
-        </ReferenceBtn>
-      </BtnDiv>
-      <TableDiv>
-        <table>
+    <>
+      <Container>
+        <BigBanner></BigBanner>
+        <BtnDiv>
+          <NoticeBtn
+            onClick={() => {
+              navigate('/notice');
+            }}
+          >
+            공지사항
+          </NoticeBtn>
+          <ReferenceBtn
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            자료실
+          </ReferenceBtn>
+        </BtnDiv>
+        <Table>
           <Thead>
             <Htr>
               {columns.map((column) => (
@@ -56,7 +57,7 @@ const Notice = () => {
           </Thead>
           <Tbody>
             {data.map(({ title, writer, date }, i) => (
-              <Btr key={title + writer + date}>
+              <Btr key={title + writer + date + i}>
                 <Td>{i + 1}</Td>
                 <Td>{i + 1 + title}</Td>
                 <Td>{writer}</Td>
@@ -64,9 +65,10 @@ const Notice = () => {
               </Btr>
             ))}
           </Tbody>
-        </table>
-      </TableDiv>
-    </Container>
+        </Table>
+      </Container>
+      <Pagination />
+    </>
   );
 };
 
