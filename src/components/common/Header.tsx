@@ -168,6 +168,7 @@ const StyledHeader = styled.header`
     margin: 0;
     padding: 0;
   }
+  padding-top: 10px;
   width: 100%;
   border-bottom: 3px solid #ddd;
 `;
