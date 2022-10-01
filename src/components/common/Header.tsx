@@ -18,7 +18,7 @@ function Header() {
           </div>
         </SearchArea>
         <UserMenu>
-          <Link className="user-menu" to="/find">
+          <Link className="user-menu" to="/mypage">
             <span className="cart-icon">
               <img src="/cart_icon.png" alt="mypage-icon" />
             </span>
@@ -168,6 +168,7 @@ const StyledHeader = styled.header`
     margin: 0;
     padding: 0;
   }
+  padding-top: 10px;
   width: 100%;
   border-bottom: 3px solid #ddd;
 `;
@@ -273,9 +274,9 @@ const Nav = styled.nav`
   }
 `;
 
-const WholeMenu = styled.div`
+const WholeMenu = styled.ul`
   position: absolute;
-  top: 83px;
+  top: 81px;
   left: 0;
   padding: 29px 45px;
   background-color: #fff;
