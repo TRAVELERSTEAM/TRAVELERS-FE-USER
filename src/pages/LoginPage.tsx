@@ -1,7 +1,5 @@
-import axios from 'axios';
 import React from 'react';
-import { useQuery } from 'react-query';
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import MemberLogin from '~/components/login/MemberLogin';
 import NoMemberLogin from '~/components/login/NoMemberLogin';
@@ -16,39 +14,17 @@ const loginMethodState = atom<LoginMethod>({
   default: LoginMethod.member,
 });
 
-// const loginMethodSelector = selector({
-//   key: 'loginMethodSelector',
-//   get: ({ get }) => {
-//     const loginMethod = get(loginMethodState);
-//     return loginMethod;
-//   },
-// });
-
-// const loginApi = async () => {
-//   const { data } = await axios.post('http://localhost:3000/login', {
-//     email: '',
-//     password: '',
-//   });
-//   return data;
-// };
-
 function Login() {
-  // const loginMethod = useRecoilValue(loginMethodSelector);
   const [loginMethod, setLoginMethod] = useRecoilState(loginMethodState);
-
-  // const { data } = useQuery('login', loginApi);
-
-  // if (isLoading) return <div>loading...</div>;
-  // if (isError) return <div>error...</div>;
 
   const onInput = (e: React.FormEvent<HTMLButtonElement>) => {
     setLoginMethod(e.currentTarget.value as any);
     if (e.currentTarget.value === 'member') {
+      e.currentTarget.classList.add('active');
       document.querySelector('.noMember')?.classList.remove('active');
-      document.querySelector('.member')?.classList.add('active');
     } else {
+      e.currentTarget.classList.add('active');
       document.querySelector('.member')?.classList.remove('active');
-      document.querySelector('.noMember')?.classList.add('active');
     }
   };
 
