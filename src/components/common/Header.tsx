@@ -273,7 +273,7 @@ const Nav = styled.nav`
   }
 `;
 
-const WholeMenu = styled.div`
+const WholeMenu = styled.ul`
   position: absolute;
   top: 83px;
   left: 0;
