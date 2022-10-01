@@ -20,6 +20,8 @@ import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/Notice';
 import Inquiry from './pages/Inquiry';
 import Reference from './pages/Reference';
+// 후기 임시보기
+import Review from './components/Review.jsx';
 
 function App() {
   return (
@@ -55,6 +57,8 @@ function App() {
           <Route path="notice" element={<Notice />} />
           {/* 회원가입 */}
           <Route path="signup" element={<SignUp />} />
+          {/* 후기(임시보기) */}
+          <Route path="review" element={<Review />} />
           {/* 회원가입 완료 페이지 */}
           <Route path="signupsuccess" element={<SignUpSuccess />} />
           {/* 자료실 */}
