@@ -18,7 +18,7 @@ function Header() {
           </div>
         </SearchArea>
         <UserMenu>
-          <Link className="user-menu" to="/find">
+          <Link className="user-menu" to="/mypage">
             <span className="cart-icon">
               <img src="/cart_icon.png" alt="mypage-icon" />
             </span>
