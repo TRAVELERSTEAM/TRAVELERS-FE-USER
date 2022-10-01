@@ -275,7 +275,7 @@ const Nav = styled.nav`
 
 const WholeMenu = styled.ul`
   position: absolute;
-  top: 83px;
+  top: 81px;
   left: 0;
   padding: 29px 45px;
   background-color: #fff;
