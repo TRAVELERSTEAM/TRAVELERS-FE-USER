@@ -32,7 +32,9 @@ function MemberLogin() {
     formState: { errors },
   } = useForm<memberLogin>();
 
-  const { mutate, isLoading, isError } = useMutation((data: memberLogin) => loginApi(data));
+  const { mutate, isLoading, isError } = useMutation('login', (data: memberLogin) =>
+    loginApi(data),
+  );
 
   // const [cookies, setCookie, removeCookie] = useCookies(['email']);
   // const setCookieAtom = useSetRecoilState(isCookieAtom);
@@ -48,10 +50,7 @@ function MemberLogin() {
 
   const onSubmit = (data: memberLogin) => {
     mutate(data);
-    // if (!isCookieAtom) {
-    //   setCookie('email', data.email);
-    // }
-    navigate('/');
+    // navigate('/');
   };
 
   const onSave = () => {
