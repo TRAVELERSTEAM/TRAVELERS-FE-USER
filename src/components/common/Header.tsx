@@ -133,7 +133,7 @@ function Header() {
                   <h3 className="title">알림마당</h3>
                   <ul>
                     <li className="menu_list">
-                      <a href="#">공지사항</a>
+                      <Link to="/notice">공지사항</Link>
                     </li>
                     <li className="menu_list">
                       <a href="#">자료실</a>

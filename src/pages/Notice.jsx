@@ -1,6 +1,62 @@
+import { useNavigate } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+const Notice = () => {
+  const navigate = useNavigate();
+  const columns = ['번호', '제목', '글쓴이', '작성일자'];
+  const data = Array(53)
+    .fill()
+    .map(() => ({
+      title: '번째 게시물',
+      writer: '관리자',
+      date: '2022. 09 . 26',
+    }));
+
+  return (
+    <>
+      <BigBanner></BigBanner>
+      <BtnDiv>
+        <NoticeBtn
+          onClick={() => {
+            navigate('/notice');
+          }}
+        >
+          공지사항
+        </NoticeBtn>
+        <ReferenceBtn
+          onClick={() => {
+            navigate('/');
+          }}
+        >
+          자료실
+        </ReferenceBtn>
+      </BtnDiv>
+      <Table>
+        <Thead>
+          <Htr>
+            {columns.map((column) => (
+              <Th key={column}>{column}</Th>
+            ))}
+          </Htr>
+        </Thead>
+        <Tbody>
+          {data.map(({ title, writer, date }, i) => (
+            <Btr key={title + writer + date + i}>
+              <Td>{i + 1}</Td>
+              <Td>{i + 1 + title}</Td>
+              <Td>{writer}</Td>
+              <Td>{date}</Td>
+            </Btr>
+          ))}
+        </Tbody>
+      </Table>
+      <Pagination data={data} />
+    </>
+  );
+};
+
+export default Notice;
 
 export const BigBanner = styled.div`
   width: 100%;
@@ -44,9 +100,6 @@ export const ReferenceBtn = styled.button`
 `;
 
 export const Table = styled.table`
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   margin: 0 auto;
   width: 1360px;
 `;
@@ -57,9 +110,6 @@ export const Thead = styled.thead`
 `;
 
 export const Htr = styled.tr`
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
   width: 100%;
   height: 89px;
   padding-left: 25px;
@@ -79,9 +129,6 @@ export const Tbody = styled.tbody`
 `;
 
 export const Btr = styled.tr`
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
   width: 100%;
   height: 89px;
   padding-left: 34px;
