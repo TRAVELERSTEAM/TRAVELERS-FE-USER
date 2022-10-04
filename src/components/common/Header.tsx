@@ -50,17 +50,6 @@ function Header() {
               </a>
               <WholeMenu className="whole-menu">
                 <li>
-                  <h3 className="title">여행큐레이션</h3>
-                  <ul>
-                    <li className="menu_list">
-                      <a href="#">여행 그룹 추천 받기</a>
-                    </li>
-                    <li className="menu_list">
-                      <a href="#">나의 여행 유형 테스트</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
                   <h3 className="title">그룹별 여행</h3>
                   <ul>
                     <li className="menu_list">
