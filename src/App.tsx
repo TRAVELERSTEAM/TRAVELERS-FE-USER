@@ -24,6 +24,7 @@ import FiftySeventy from './pages/groups/subs/FiftySeventy';
 import TwentyFourty from './pages/groups/subs/TwentyFourty';
 import Gentlemen from './pages/groups/subs/Gentlemen';
 import Ladies from './pages/groups/subs/Ladies';
+import WithChild from './pages/groups/subs/WithChild';
 
 // 후기 임시보기
 import Review from './components/Review.jsx';
@@ -42,6 +43,7 @@ function App() {
             <Route path="2040" element={<TwentyFourty />} />
             <Route path="gentlemen" element={<Gentlemen />} />
             <Route path="ladies" element={<Ladies />} />
+            <Route path="withchild" element={<WithChild />} />
           </Route>
           {/* 지역별여행 */}
           <Route path="destination" element={<Destination />} />
