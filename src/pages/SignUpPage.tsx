@@ -1,7 +1,15 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQuery } from 'react-query';
 import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import {
+  emailCertification,
+  emailCertificationState,
+  emailVerify,
+  signUpApi,
+} from '~/api/user/user';
+import EmailCertification from '~/components/signup/EmailCertification';
 import KindOfTrip from '~/components/signup/KindOfTrip';
 
 const group = ['5070끼리', '2040끼리', '남자끼리', '여자끼리', '자녀동반', '누구든지'];
@@ -15,7 +23,7 @@ const area = [
 ];
 const theme = ['문화탐방', '골프여행 ', '휴양지', '트레킹', '성지순례', '볼론투어'];
 
-interface signUp {
+export interface signUp {
   profile?: string;
   username: string;
   gender: string;
@@ -36,6 +44,11 @@ const ProfileState = atom({
   default: '',
 });
 
+// const emailAuthState = atom({
+//   key: 'emailAuth',
+//   default: '',
+// });
+
 function SignUp() {
   const {
     register,
@@ -46,7 +59,33 @@ function SignUp() {
   } = useForm<signUp>();
 
   const [checkedList, setCheckedList] = useState<Array<string>>([]);
-  console.log(checkedList);
+  console.log(watch());
+
+  const addProfile = useRef<HTMLInputElement>(null);
+  const emailAuth = useRef<HTMLInputElement>(null);
+  const emailKey = useRef<HTMLInputElement>(null);
+  const [profile, setProfile] = useRecoilState<string>(ProfileState);
+  console.log(profile);
+  const {
+    mutate: signUp,
+    isLoading,
+    isError,
+  } = useMutation('signup', (data: signUp) => signUpApi(data));
+  const { mutate: emailCertificate } = useMutation(
+    'emailcertification',
+    (data: emailCertificationState) => emailCertification(data),
+  );
+  // const { data: emailkey } = useQuery(
+  //   'emailkey',
+  //   async () =>
+  //     await emailVerify({
+  //       email: emailAuth.current?.value as string,
+  //       key: emailKey.current?.value as string,
+  //     }),
+  // );
+
+  if (isLoading) return <div>loading...</div>;
+  if (isError) return <div>error...</div>;
 
   const onChecked = useCallback(
     (checked: boolean, item: string) => {
@@ -61,16 +100,12 @@ function SignUp() {
 
   const onSubmit = (data: signUp) => {
     console.log(data);
+    console.log(data.email);
     if (data.password !== data.confirmPassword) {
       setError('confirmPassword', { message: '비밀번호가 같지 않습니다' }, { shouldFocus: true });
     }
+    // signUp(data);
   };
-
-  console.log(watch());
-
-  const addProfile = useRef<HTMLInputElement>(null);
-  const [profile, setProfile] = useRecoilState<string>(ProfileState);
-  console.log(profile);
 
   const onAddProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files;
@@ -85,9 +120,13 @@ function SignUp() {
     }
   };
 
+  // useEffect(() => {
+  //   emailAuth.current?.value;
+  // }, [emailAuth, emailKey, emailkey]);
+
   return (
     <SignUpContainer onSubmit={handleSubmit(onSubmit)}>
-      <article>
+      {/* <article>
         {profile && profile ? (
           <img src={profile} alt="사용자 이미지" />
         ) : (
@@ -96,11 +135,11 @@ function SignUp() {
         <input
           {...register('profile', {
             required: true,
+            onChange: (e) => onAddProfile(e),
           })}
           type="file"
           ref={addProfile}
           className="hidden"
-          onChange={onAddProfile}
         />
         <button
           className="btn-modify"
@@ -111,7 +150,7 @@ function SignUp() {
         >
           이미지 변경
         </button>
-      </article>
+      </article> */}
       <div>
         <p>반갑습니다!</p>
         <p>로그인하면 예약을 더 쉽고 빠르게 할 수 있습니다.</p>
@@ -173,12 +212,15 @@ function SignUp() {
           })}
           type="email"
           placeholder="이메일(아이디)"
+          ref={emailAuth}
         />
         <span>{errors?.email?.message}</span>
         <button
           onClick={(e) => {
             e.preventDefault();
-            console.log('인증번호 전송');
+            // e.currentTarget.value = emailAuth.current?.value as string;
+            console.log(emailAuth.current?.value);
+            emailCertificate({ email: emailAuth.current?.value as string });
           }}
         >
           인증하기
@@ -191,13 +233,18 @@ function SignUp() {
             required: '인증번호를 입력해주세요.',
           })}
           type="text"
+          ref={emailKey}
           placeholder="이메일 인증번호를 입력해 주세요"
         />
         <span>{errors?.key?.message}</span>
         <button
           onClick={(e) => {
             e.preventDefault();
-            console.log('인증 확인');
+            // emailKey.current?.click();
+            emailVerify({
+              email: emailAuth.current?.value as string,
+              key: emailKey.current?.value as string,
+            });
           }}
         >
           인증 확인
@@ -207,7 +254,8 @@ function SignUp() {
         <label>비밀번호 *</label>
         <input
           {...register('password', { required: true })}
-          type="text"
+          type="password"
+          autoComplete="on"
           placeholder="비밀번호를 입력해 주세요."
         />
         <span>{errors?.password?.message}</span>
@@ -218,7 +266,8 @@ function SignUp() {
           {...register('confirmPassword', {
             required: true,
           })}
-          type="text"
+          type="password"
+          autoComplete="on"
           placeholder="비밀번호를 한 번 더 입력해주세요."
         />
         <span>{errors?.confirmPassword?.message}</span>
