@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 
-const Paging = (data) => {
+const Paging = () => {
   const [page, setPage] = useState(1);
 
   const handlePageChange = (page) => {
