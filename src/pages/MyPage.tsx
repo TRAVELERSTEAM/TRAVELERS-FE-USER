@@ -1,25 +1,62 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link, Outlet } from 'react-router-dom';
 // import Reservation from '~/components/MyPage/Reservation';
 // import WishList from '~/components/MyPage/WishList';
 // import DeleteAccount from '~/components/MyPage/DeleteAccount';
 
-const StyledMyPage = styled.div``;
-const StyledMyPageList = styled.div``;
-
 function MyPage() {
   return (
-    <StyledMyPage>
-      <StyledMyPageList>
-        <p>내 정보</p>
-        <p>예약 및 취소 조회</p>
-        <p>찜 목록</p>
-        <p>1:1 문의</p>
-        <p>정보 수정</p>
-        <p>회원 탈퇴</p>
-      </StyledMyPageList>
-    </StyledMyPage>
+    <>
+      <Container>
+        <Page>
+          <Inner>
+            <Menu>
+              <p>내 정보</p>
+              <p>예약 및 취소 조회</p>
+              <p>찜 목록</p>
+              <Link to="inquiry">1:1 문의</Link>
+              <p>정보 수정</p>
+              <p>회원 탈퇴</p>
+            </Menu>
+          </Inner>
+
+          <Outlet />
+        </Page>
+      </Container>
+    </>
   );
 }
 
 export default MyPage;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+const Inner = styled.div`
+  position: absolute;
+  width: 279px;
+  height: 336px;
+  top: 193px;
+  left: -300px;
+  border: 3px solid #0080c6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+`;
+
+const Menu = styled.div`
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 47px;
+`;
+
+const Page = styled.div`
+  position: relative;
+  width: 1372px;
+`;

@@ -18,7 +18,7 @@ import EditInfo from './pages/EditInfo';
 import SignUp from './pages/SignUpPage';
 import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/Notice';
-import Inquiry from './pages/Inquiry';
+import Inquiry from './pages/Inquiry.jsx';
 import Reference from './pages/Reference';
 import FiftySeventy from './pages/groups/subs/FiftySeventy';
 // 후기 임시보기
