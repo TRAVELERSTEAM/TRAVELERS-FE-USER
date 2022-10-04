@@ -20,6 +20,7 @@ import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/Notice';
 import Inquiry from './pages/Inquiry';
 import Reference from './pages/Reference';
+import FiftySeventy from './pages/groups/subs/FiftySeventy';
 // 후기 임시보기
 import Review from './components/Review.jsx';
 
@@ -32,7 +33,9 @@ function App() {
           {/* 메인 */}
           <Route index element={<Main />} />
           {/* 그룹별여행 */}
-          <Route path="groups" element={<Groups />} />
+          <Route path="groups" element={<Groups />}>
+            <Route path="5070" element={<FiftySeventy />} />
+          </Route>
           {/* 지역별여행 */}
           <Route path="destination" element={<Destination />} />
           {/* 테마별여행  */}
