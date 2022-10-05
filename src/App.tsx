@@ -10,7 +10,7 @@ import WishList from './components/MyPage/WishList';
 import Reservation from './components/MyPage/Reservation';
 import Destination from './pages/destination/Destination';
 import Groups from './pages/groups/Groups';
-import Themes from './pages/Themes';
+import Themes from './pages/themes/Themes';
 import Login from './pages/LoginPage';
 import Find from './pages/Find';
 import MyInfo from './pages/MyInfo';
