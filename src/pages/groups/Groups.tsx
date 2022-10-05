@@ -99,9 +99,8 @@ const BigBanner = styled.div`
   height: 100%;
   background-image: url(/img/bigBanner_1.jpg);
   background-repeat: no-repeat;
-  background-position: center -80px;
-  background-size: 100%;
-  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
 `;
 
 const Desc = styled.div`
