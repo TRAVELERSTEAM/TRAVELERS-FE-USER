@@ -20,12 +20,6 @@ import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/Notice';
 import Inquiry from './pages/Inquiry.jsx';
 import Reference from './pages/Reference';
-import FiftySeventy from './pages/groups/subs/FiftySeventy';
-import TwentyFourty from './pages/groups/subs/TwentyFourty';
-import Gentlemen from './pages/groups/subs/Gentlemen';
-import Ladies from './pages/groups/subs/Ladies';
-import WithChild from './pages/groups/subs/WithChild';
-import Anyone from './pages/groups/subs/Anyone';
 
 // 후기 임시보기
 import Review from './components/Review.jsx';
@@ -39,14 +33,7 @@ function App() {
           {/* 메인 */}
           <Route index element={<Main />} />
           {/* 그룹별여행 */}
-          <Route path="groups" element={<Groups />}>
-            <Route path="5070" element={<FiftySeventy />} />
-            <Route path="2040" element={<TwentyFourty />} />
-            <Route path="gentlemen" element={<Gentlemen />} />
-            <Route path="ladies" element={<Ladies />} />
-            <Route path="withchild" element={<WithChild />} />
-            <Route path="anyone" element={<Anyone />} />
-          </Route>
+          <Route path="groups" element={<Groups />}></Route>
           {/* 지역별여행 */}
           <Route path="destination" element={<Destination />} />
           {/* 테마별여행  */}
