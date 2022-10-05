@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+import ProductCardLayout from '~/components/ProductCardLayout';
 
 function Themes() {
+  const testArr = ['1', '2', '3', '4', '5', '6', '7', '8'];
   return (
     <Section>
       <BannerWrap>
@@ -48,6 +50,17 @@ function Themes() {
         </ul>
       </ThemesListWrap>
       <Outlet />
+      <article className="product_area">
+        <ProductWrap>
+          {testArr.map(() => {
+            return (
+              <>
+                <ProductCardLayout thumb="asasdf" title="5070 태국 왕실 관람 4일" price="1500000" />
+              </>
+            );
+          })}
+        </ProductWrap>
+      </article>
     </Section>
   );
 }
@@ -124,4 +137,14 @@ const ThemesListWrap = styled.div`
       }
     }
   }
+`;
+
+const ProductWrap = styled.article`
+  margin: 0 auto;
+  padding: 220px 0;
+  width: 1410px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 45px;
+  grid-row-gap: 200px;
 `;
