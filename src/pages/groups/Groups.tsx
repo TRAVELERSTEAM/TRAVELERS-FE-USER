@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductCardLayout from '~/components/ProductCardLayout';
 
 function Groups() {
   const testArr = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  const { id } = useParams();
   return (
     <Section>
       <BannerWrap>
@@ -49,7 +50,7 @@ function Groups() {
           </li>
         </ul>
       </GroupListWrap>
-      <Outlet />
+      <Outlet context={id} />
       <article className="product_area">
         <ProductWrap>
           {testArr.map(() => {
