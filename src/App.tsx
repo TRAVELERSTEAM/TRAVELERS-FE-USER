@@ -8,9 +8,9 @@ import ProductDetailPage from '~/pages/ProductDetailPage';
 import DeleteAccount from './components/MyPage/DeleteAccount';
 import WishList from './components/MyPage/WishList';
 import Reservation from './components/MyPage/Reservation';
-import Destination from './pages/destination/Destination';
-import Groups from './pages/groups/Groups';
-import Themes from './pages/themes/Themes';
+import Destination from './pages/Destination';
+import Groups from './pages/Groups';
+import Themes from './pages/Themes';
 import Login from './pages/LoginPage';
 import Find from './pages/Find';
 import MyInfo from './pages/MyInfo';
@@ -23,6 +23,7 @@ import Reference from './pages/Reference';
 
 // 후기 임시보기
 import Review from './components/Review.jsx';
+import ProductsByFilter from './components/ProductsByFilter';
 
 function App() {
   return (
@@ -33,11 +34,17 @@ function App() {
           {/* 메인 */}
           <Route index element={<Main />} />
           {/* 그룹별여행 */}
-          <Route path="groups" element={<Groups />}></Route>
+          <Route path="groups" element={<Groups />}>
+            <Route path="/groups/:id" element={<ProductsByFilter />} />
+          </Route>
           {/* 지역별여행 */}
-          <Route path="destination" element={<Destination />} />
+          <Route path="destination" element={<Destination />}>
+            <Route path="/destination/:id" element={<ProductsByFilter />} />
+          </Route>
           {/* 테마별여행  */}
-          <Route path="themes" element={<Themes />} />
+          <Route path="themes" element={<Themes />}>
+            <Route path="/themes/:id" element={<ProductsByFilter />} />
+          </Route>
           {/* 상품상세페이지 */}
           <Route path="product_detail/:id" element={<ProductDetailPage />} />
           {/* 아이디/비밀번호 찾기 페이지 */}

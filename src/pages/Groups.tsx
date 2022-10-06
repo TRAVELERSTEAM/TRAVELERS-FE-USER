@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductCardLayout from '~/components/ProductCardLayout';
 
 function Groups() {
   const testArr = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  const { id } = useParams();
   return (
     <Section>
       <BannerWrap>
@@ -18,38 +19,38 @@ function Groups() {
       <GroupListWrap className="group-list">
         <ul className="list_wrap">
           <li>
-            <Link to="/groups/5070">
+            <Link to="5070">
               <span>5070끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="/groups/2040">
+            <Link to="2040">
               <span>2040끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="/groups/gentlemen">
+            <Link to="gentlemen">
               <span>남자끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="/groups/ladies">
+            <Link to="ladies">
               <span>여자끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="/groups/withchild">
+            <Link to="withchild">
               <span>자녀동반</span>
             </Link>
           </li>
           <li>
-            <Link to="/groups/anyone">
+            <Link to="anyone">
               <span>누구든지</span>
             </Link>
           </li>
         </ul>
       </GroupListWrap>
-      <Outlet />
+      <Outlet context={id} />
       <article className="product_area">
         <ProductWrap>
           {testArr.map(() => {
@@ -142,7 +143,7 @@ const GroupListWrap = styled.div`
   }
 `;
 
-const ProductWrap = styled.article`
+const ProductWrap = styled.div`
   margin: 0 auto;
   padding: 220px 0;
   width: 1410px;

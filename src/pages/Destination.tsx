@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductCardLayout from '~/components/ProductCardLayout';
 
 function Destination() {
   const testArr = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  const { id } = useParams();
   return (
     <Section>
       <BannerWrap>
@@ -18,38 +19,38 @@ function Destination() {
       <DestinationListWrap className="destination-list">
         <ul className="list_wrap">
           <li>
-            <Link to="/destination/asia">
+            <Link to="asia">
               <span>동남아/태평양</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/india">
+            <Link to="india">
               <span>인도/중앙아시아</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/africa">
+            <Link to="africa">
               <span>아프리카/중동</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/europe">
+            <Link to="europe">
               <span>유럽/코카서스</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/america">
+            <Link to="america">
               <span>중남미/북미</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/se-asia">
+            <Link to="se-asia">
               <span>대만/중국/일본</span>
             </Link>
           </li>
         </ul>
       </DestinationListWrap>
-      <Outlet />
+      <Outlet context={id} />
       <article className="product_area">
         <ProductWrap>
           {testArr.map(() => {
@@ -139,7 +140,7 @@ const DestinationListWrap = styled.div`
   }
 `;
 
-const ProductWrap = styled.article`
+const ProductWrap = styled.div`
   margin: 0 auto;
   padding: 220px 0;
   width: 1410px;
