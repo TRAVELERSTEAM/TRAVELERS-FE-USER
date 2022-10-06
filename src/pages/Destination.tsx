@@ -19,32 +19,32 @@ function Destination() {
       <DestinationListWrap className="destination-list">
         <ul className="list_wrap">
           <li>
-            <Link to="/destination/asia">
+            <Link to="asia">
               <span>동남아/태평양</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/india">
+            <Link to="india">
               <span>인도/중앙아시아</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/africa">
+            <Link to="africa">
               <span>아프리카/중동</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/europe">
+            <Link to="europe">
               <span>유럽/코카서스</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/america">
+            <Link to="america">
               <span>중남미/북미</span>
             </Link>
           </li>
           <li>
-            <Link to="/destination/se-asia">
+            <Link to="se-asia">
               <span>대만/중국/일본</span>
             </Link>
           </li>
@@ -140,7 +140,7 @@ const DestinationListWrap = styled.div`
   }
 `;
 
-const ProductWrap = styled.article`
+const ProductWrap = styled.div`
   margin: 0 auto;
   padding: 220px 0;
   width: 1410px;

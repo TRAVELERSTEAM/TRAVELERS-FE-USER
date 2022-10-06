@@ -3,7 +3,7 @@ import { Link, Outlet, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductCardLayout from '~/components/ProductCardLayout';
 
-function Themes() {
+function Groups() {
   const testArr = ['1', '2', '3', '4', '5', '6', '7', '8'];
   const { id } = useParams();
   return (
@@ -11,52 +11,56 @@ function Themes() {
       <BannerWrap>
         <BigBanner>
           <Desc className="desc">
-            <h1>테마별 여행</h1>
-            <h2>평범한 여행에 당신만의 테마를 입혀보세요.</h2>
+            <h1>그룹별 여행</h1>
+            <h2>나에게 맞는 그룹을 찾아보세요!</h2>
           </Desc>
         </BigBanner>
       </BannerWrap>
-      <ThemesListWrap className="themes-list">
+      <GroupListWrap className="group-list">
         <ul className="list_wrap">
           <li>
-            <Link to="culture">
-              <span>문화탐방</span>
+            <Link to="5070">
+              <span>5070끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="golf">
-              <span>골프여행</span>
+            <Link to="2040">
+              <span>2040끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="vacation">
-              <span>휴양지</span>
+            <Link to="gentlemen">
+              <span>남자끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="trekking">
-              <span>트레킹</span>
+            <Link to="ladies">
+              <span>여자끼리</span>
             </Link>
           </li>
           <li>
-            <Link to="pilgrimage">
-              <span>성지순례</span>
+            <Link to="withchild">
+              <span>자녀동반</span>
             </Link>
           </li>
           <li>
-            <Link to="voluntour">
-              <span>볼론투어</span>
+            <Link to="anyone">
+              <span>누구든지</span>
             </Link>
           </li>
         </ul>
-      </ThemesListWrap>
+      </GroupListWrap>
       <Outlet context={id} />
       <article className="product_area">
         <ProductWrap>
           {testArr.map(() => {
             return (
               <>
-                <ProductCardLayout thumb="asasdf" title="5070 태국 왕실 관람 4일" price="1500000" />
+                <ProductCardLayout
+                  thumb="asdf"
+                  title="2040 브라질 골프 투어 30일"
+                  price="2500000"
+                />
               </>
             );
           })}
@@ -66,7 +70,7 @@ function Themes() {
   );
 }
 
-export default Themes;
+export default Groups;
 
 const Section = styled.section`
   * {
@@ -94,11 +98,10 @@ const BigBanner = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url(/img/bigBanner_3.jpg);
+  background-image: url(/img/bigBanner_1.jpg);
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: contain;
-  /* background-attachment: fixed; */
+  background-size: cover;
 `;
 
 const Desc = styled.div`
@@ -119,7 +122,7 @@ const Desc = styled.div`
   }
 `;
 
-const ThemesListWrap = styled.div`
+const GroupListWrap = styled.div`
   border-bottom: 3px solid #0080c6;
   .list_wrap {
     display: flex;
@@ -140,7 +143,7 @@ const ThemesListWrap = styled.div`
   }
 `;
 
-const ProductWrap = styled.article`
+const ProductWrap = styled.div`
   margin: 0 auto;
   padding: 220px 0;
   width: 1410px;

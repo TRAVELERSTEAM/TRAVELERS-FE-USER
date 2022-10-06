@@ -27,7 +27,7 @@ function ProductsByFilter() {
 
 export default ProductsByFilter;
 
-const ProductWrap = styled.article`
+const ProductWrap = styled.div`
   margin: 0 auto;
   padding: 220px 0;
   width: 1410px;
