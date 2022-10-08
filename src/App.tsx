@@ -18,8 +18,12 @@ import EditInfo from './pages/EditInfo';
 import SignUp from './pages/SignUpPage';
 import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/Notice';
-import Inquiry from './pages/Inquiry';
+import Inquiry from './pages/Inquiry.jsx';
 import Reference from './pages/Reference';
+
+// 후기 임시보기
+import Review from './components/Review.jsx';
+import ProductsByFilter from './components/ProductsByFilter';
 
 function App() {
   return (
@@ -30,11 +34,17 @@ function App() {
           {/* 메인 */}
           <Route index element={<Main />} />
           {/* 그룹별여행 */}
-          <Route path="groups" element={<Groups />} />
+          <Route path="groups" element={<Groups />}>
+            <Route path="/groups/:id" element={<ProductsByFilter />} />
+          </Route>
           {/* 지역별여행 */}
-          <Route path="destination" element={<Destination />} />
+          <Route path="destination" element={<Destination />}>
+            <Route path="/destination/:id" element={<ProductsByFilter />} />
+          </Route>
           {/* 테마별여행  */}
-          <Route path="themes" element={<Themes />} />
+          <Route path="themes" element={<Themes />}>
+            <Route path="/themes/:id" element={<ProductsByFilter />} />
+          </Route>
           {/* 상품상세페이지 */}
           <Route path="product_detail/:id" element={<ProductDetailPage />} />
           {/* 아이디/비밀번호 찾기 페이지 */}
@@ -55,6 +65,8 @@ function App() {
           <Route path="notice" element={<Notice />} />
           {/* 회원가입 */}
           <Route path="signup" element={<SignUp />} />
+          {/* 후기(임시보기) */}
+          <Route path="review" element={<Review />} />
           {/* 회원가입 완료 페이지 */}
           <Route path="signupsuccess" element={<SignUpSuccess />} />
           {/* 자료실 */}
