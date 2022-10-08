@@ -1,20 +1,9 @@
 import React from 'react';
 
-function KindOfTrip({ register, item, index, name, onChecked, checkedList }: any) {
+function KindOfTrip({ register, item, index, name }: any) {
   return (
     <div key={index}>
-      <input
-        {...register(name, {
-          required: true,
-        })}
-        onChange={(e) => {
-          onChecked(e.target.checked, e.target.value);
-        }}
-        value={item}
-        type="checkbox"
-        name={name}
-        checked={checkedList.includes(item) ? true : false}
-      />
+      <input {...register(name)} value={item} type="checkbox" name={name} />
       <label>{item}</label>
     </div>
   );
