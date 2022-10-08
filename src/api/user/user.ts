@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { memberLogin } from '~/components/login/MemberLogin';
 import { signUp } from '~/pages/SignUpPage';
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 export const loginApi = async (payload: memberLogin) => {
   const { email, password } = payload;
@@ -21,23 +22,23 @@ export const loginApi = async (payload: memberLogin) => {
   }
 };
 
-// interface token {
-//   accessToken: string;
-//   refreshToken: string;
-// }
+interface token {
+  accessToken: string;
+  refreshToken: string;
+}
 
-// const reissueApi = async (payload: token) => {
-//   const { accessToken, refreshToken } = payload;
-//   const { data } = await axios.get('http://43.200.38.193:8888/reissue', {
-//     accessToken,
-//     refreshToken,
-//   });
-//   return data;
-// };
+const reissueApi = async (payload: token) => {
+  const { accessToken, refreshToken } = payload;
+  const { data } = await axios.post('http://43.200.38.193:8888/reissue', {
+    accessToken,
+    refreshToken,
+  });
+  return data;
+};
 
 export const signUpApi = async (payload: signUp) => {
   const {
-    // profile,
+    profile,
     username,
     gender,
     birth,
@@ -52,12 +53,14 @@ export const signUpApi = async (payload: signUp) => {
     recommend,
   } = payload;
 
-  const { data } = await axios.post('http://www.gotogether.gq/register', {
-    // profile,
+  const formData = new FormData();
+  formData.append('files', profile[0]);
+
+  const body = {
     username,
-    gender,
     birth,
     tel,
+    gender,
     email,
     key,
     password,
@@ -66,7 +69,21 @@ export const signUpApi = async (payload: signUp) => {
     area,
     theme,
     recommend,
+  };
+
+  const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+
+  formData.append('request', blob);
+
+  const { data } = await axios({
+    method: 'post',
+    url: `${baseUrl}/register`,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data: formData,
   });
+
   return data;
 };
 
@@ -90,5 +107,7 @@ export interface emailVerifyState {
 export const emailVerify = async (payload: emailVerifyState) => {
   const { email, key } = payload;
   const { data } = await axios.get(`http://www.gotogether.gq/verify/${email}/${key}`);
-  return data;
+  if (data.status === 200) {
+    return data;
+  }
 };
