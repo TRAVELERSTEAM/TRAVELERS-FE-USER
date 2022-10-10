@@ -51,6 +51,7 @@ function SignUp() {
 
   const {
     register,
+    watch,
     handleSubmit,
     setError,
     formState: { errors },
@@ -79,6 +80,15 @@ function SignUp() {
   const { ref: profileRef, onChange: profileChange, ...profilelRest } = register('profile');
   const { ref: emailRef, ...emailRest } = register('email');
   const { ref: keyRef, ...keyRest } = register('key');
+
+  const watchUserName = watch('username');
+  const watchBirth = watch('birth');
+  const watchTel = watch('tel');
+  const watchGender = watch('gender');
+  const watchEmail = watch('email');
+  const watchKey = watch('key');
+  const watchPassword = watch('password');
+  const watchConfirmPassword = watch('confirmPassword');
 
   const {
     mutate: signUp,
@@ -239,6 +249,7 @@ function SignUp() {
               console.log(emailAuth.current?.value);
               emailCertificate({ email: emailAuth.current?.value as string });
             }}
+            disabled={!watchEmail}
           >
             인증하기
           </SucessButton>
@@ -268,6 +279,7 @@ function SignUp() {
                 key: emailKey.current?.value as string,
               });
             }}
+            disabled={!watchKey}
           >
             인증 확인
           </SucessButton>
@@ -322,7 +334,22 @@ function SignUp() {
           <label>추천인</label>
           <input {...register('recommend')} type="text" placeholder="추천인 코드를 입력하세요." />
         </RecommendBox>
-        <SignUpButton>가입하기</SignUpButton>
+        <SignUpButton
+          disabled={
+            !(
+              watchUserName &&
+              watchBirth &&
+              watchGender &&
+              watchTel &&
+              watchEmail &&
+              watchKey &&
+              watchPassword &&
+              watchConfirmPassword
+            )
+          }
+        >
+          가입하기
+        </SignUpButton>
         <Terms>
           가입하시면 <span>이용약관</span>에 동의하게됩니다.
         </Terms>
@@ -475,6 +502,7 @@ const RadioItem = styled.div`
     color: #939598;
     text-align: center;
     transition: 0.2s ease;
+    cursor: pointer;
     &:hover {
       background-color: #f7f7f7;
     }
@@ -497,8 +525,13 @@ const SucessButton = styled.button`
   background-color: #ffffff;
   color: #939598;
   transition: 0.2s ease;
+  cursor: pointer;
   &:hover {
     background-color: #f7f7f7;
+  }
+  &:disabled {
+    cursor: default;
+    background-color: #ffffff;
   }
 `;
 
@@ -552,6 +585,11 @@ const SignUpButton = styled.button`
   border-radius: 10px;
   font-size: 28px;
   margin: 82px 0 14px;
+  cursor: pointer;
+  &:disabled {
+    background-color: #9da0a7;
+    cursor: default;
+  }
 `;
 
 const Terms = styled.p`
