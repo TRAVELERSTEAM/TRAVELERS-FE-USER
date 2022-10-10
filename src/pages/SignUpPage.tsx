@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import {
   emailCertification,
@@ -40,13 +39,7 @@ export interface signUp {
   recommend?: string;
 }
 
-// const ProfileState = atom({
-//   key: 'profileImg',
-//   default: '/noprofile.png',
-// });
-
 function SignUp() {
-  // const [profile, setProfile] = useRecoilState(ProfileState);
   const [profile, setProfile] = useState('/basic-profile.png');
 
   const {
@@ -164,11 +157,10 @@ function SignUp() {
             이름<span>*</span>
           </label>
           <input
-            {...register('username', { required: '이름을 입력해주세요' })}
+            {...register('username', { required: true })}
             type="text"
             placeholder="이름을 입력해주세요."
           />
-          <span>{errors?.username?.message}</span>
           <RadioBox>
             <RadioItem className="radio-left">
               <input
@@ -202,12 +194,11 @@ function SignUp() {
           </label>
           <input
             {...register('birth', {
-              required: '생년월일을 입력해주세요.',
+              required: true,
             })}
             type="text"
             placeholder="생일을 입력해 주세요. (예: 19500101)"
           />
-          <span>{errors?.birth?.message}</span>
         </InputBox>
         <InputBox>
           <label>
@@ -215,12 +206,11 @@ function SignUp() {
           </label>
           <input
             {...register('tel', {
-              required: '휴대폰번호를 입력해주세요.',
+              required: true,
             })}
             type="text"
             placeholder="휴대폰번호를 입력해 주세요. (예: 01012345678)"
           />
-          <span>{errors?.tel?.message}</span>
         </InputBox>
         <InputBox>
           <label>
@@ -229,7 +219,7 @@ function SignUp() {
           <input
             {...emailRest}
             {...register('email', {
-              required: '이메일을 입력해주세요.',
+              required: true,
               pattern: {
                 value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
                 message: '올바른 이메일 형식이 아닙니다.',
@@ -242,7 +232,6 @@ function SignUp() {
               emailAuth.current = e;
             }}
           />
-          <span>{errors?.email?.message}</span>
           <SucessButton
             onClick={(e) => {
               e.preventDefault();
@@ -261,7 +250,7 @@ function SignUp() {
           <input
             {...keyRest}
             {...register('key', {
-              required: '인증번호를 입력해주세요.',
+              required: true,
             })}
             type="text"
             ref={(e) => {
@@ -270,7 +259,6 @@ function SignUp() {
             }}
             placeholder="이메일 인증번호를 입력해 주세요"
           />
-          <span>{errors?.key?.message}</span>
           <SucessButton
             onClick={(e) => {
               e.preventDefault();
