@@ -9,25 +9,7 @@ interface Props {
 function SignUpState({ signUpPage, successSignUp }: Props) {
   return (
     <SignUpStateBox>
-      <article className={signUpPage}>
-        {/* <svg
-          width="56"
-          height="54"
-          viewBox="0 0 56 54"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19.2848 16.5298C23.8581 16.5298 27.5222 12.8382 27.5222 8.26492C27.5222 3.69167 23.8581 0 19.2848 0C14.7116 0 11.0199 3.69167 11.0199 8.26492C11.0199 12.8382 14.7116 16.5298 19.2848 16.5298ZM19.2848 22.0398C12.8657 22.0398 0 25.2631 0 31.6822V35.8147C0 37.3299 1.23974 38.5696 2.75497 38.5696H35.8147C37.3299 38.5696 38.5696 37.3299 38.5696 35.8147V31.6822C38.5696 25.2631 25.7039 22.0398 19.2848 22.0398Z"
-            fill="#757575"
-          />
-          <path
-            d="M30.1365 36.675L25.0429 31.5813L23.986 30.5244L22.9253 31.5776L20.8298 33.6584L19.7616 34.719L20.8261 35.7834L29.0754 44.0327L30.136 45.0934L31.1967 44.0327L48.9054 26.324L49.966 25.2634L48.9054 24.2027L46.8246 22.122L45.7644 21.0618L44.7038 22.1215L30.1365 36.675Z"
-            fill="white"
-            stroke="#757575"
-            stroke-width="3"
-          />
-        </svg> */}
+      <li className={signUpPage}>
         {signUpPage === 'on' ? (
           <img src="/signup-page-on.png" alt="signup-page-on" />
         ) : (
@@ -38,9 +20,9 @@ function SignUpState({ signUpPage, successSignUp }: Props) {
           <br />
           &정보입력
         </p>
-      </article>
+      </li>
       <hr />
-      <article className={successSignUp}>
+      <li className={successSignUp}>
         <svg
           width="40"
           height="40"
@@ -54,19 +36,19 @@ function SignUpState({ signUpPage, successSignUp }: Props) {
           />
         </svg>
         <p>가입완료</p>
-      </article>
+      </li>
     </SignUpStateBox>
   );
 }
 
 export default SignUpState;
 
-const SignUpStateBox = styled.nav`
+const SignUpStateBox = styled.ul`
   display: flex;
   flex-direction: column;
   transform: translateY(74px);
   white-space: nowrap;
-  article {
+  li {
     display: flex;
     align-items: center;
     p {
@@ -75,11 +57,11 @@ const SignUpStateBox = styled.nav`
       color: #616161;
     }
     &.on {
-      /* svg {
+      svg {
         path {
           fill: #0080c6;
         }
-      } */
+      }
       p {
         color: #0080c6;
       }
