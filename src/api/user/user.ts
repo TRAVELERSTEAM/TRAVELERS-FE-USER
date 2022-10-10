@@ -1,25 +1,39 @@
 import axios from 'axios';
 import { memberLogin } from '~/components/login/MemberLogin';
 import { signUp } from '~/pages/SignUpPage';
+import { setCookie } from '~/utils/cookie';
 const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 export const loginApi = async (payload: memberLogin) => {
   const { email, password } = payload;
-  const { data } = await axios.post('http://www.gotogether.gq/login', {
-    email,
-    password,
-  });
+  const { data } = await axios.post(
+    `${baseUrl}/login`,
+    {
+      email,
+      password,
+    },
+    {
+      withCredentials: true,
+    },
+  );
   console.log(data);
-  if (data.status === 200) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
-    return data;
-  }
+  axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
+
+  setCookie(data.refreshToken);
+
   if (data.status === 401) {
     alert('아이디 또는 비밀번호를 확인해주세요');
   }
-  // 엑세스토큰 만료시 500에러
-  if (data.status === 500) {
+  // 엑세스토큰 만료시 재요청
+  if (
+    // axios.defaults.headers.common['Authorization'] === undefined ||
+    // data.refreshToken === undefined
+    data.status === 500
+  ) {
+    await reissueApi(data);
   }
+
+  return data;
 };
 
 interface token {
@@ -29,10 +43,12 @@ interface token {
 
 const reissueApi = async (payload: token) => {
   const { accessToken, refreshToken } = payload;
-  const { data } = await axios.post('http://43.200.38.193:8888/reissue', {
+  const { data } = await axios.post(`${baseUrl}/reissue`, {
     accessToken,
     refreshToken,
   });
+
+  axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
   return data;
 };
 

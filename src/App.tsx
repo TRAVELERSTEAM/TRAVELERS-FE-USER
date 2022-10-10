@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Header from './components/common/Header';
 import Main from '~/pages/MainPage';
@@ -24,12 +25,41 @@ import Reference from './pages/Reference';
 // 후기 임시보기
 import Review from './components/Review.jsx';
 import ProductsByFilter from './components/ProductsByFilter';
+import { getCookieToken, removeCookie } from './utils/cookie';
+import { atom, useRecoilState } from 'recoil';
+
+export const isLoginState = atom({
+  key: 'isLogin',
+  default: false,
+});
 
 function App() {
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState);
+  // const [isLogin, setIsLogin] = useState(false);
+
+  const loginState = () => {
+    const cookie = getCookieToken();
+    console.log(cookie);
+    if (cookie) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  };
+
+  // const logOut = () => {
+  //   removeCookie();
+  // };
+
+  useEffect(() => {
+    loginState();
+  }, []);
+
   return (
     <>
       <BrowserRouter>
-        <Header />
+        {/* {isLogin ? <button onClick={logOut}>로그아웃</button> : <Header />} */}
+        <Header isLogin={isLogin} />
         <Routes>
           {/* 메인 */}
           <Route index element={<Main />} />

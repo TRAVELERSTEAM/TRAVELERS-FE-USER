@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { removeCookie } from '~/utils/cookie';
 
-function Header() {
+interface loginState {
+  isLogin: boolean;
+}
+
+function Header({ isLogin }: loginState) {
+  const logOut = () => {
+    removeCookie();
+  };
   return (
     <StyledHeader>
       <Wrap className="wrap">
@@ -18,7 +26,33 @@ function Header() {
           </div>
         </SearchArea>
         <UserMenu>
-          <Link className="user-menu" to="/mypage">
+          {isLogin ? (
+            <>
+              <Link className="user-menu" to="/mypage">
+                <span className="cart-icon">
+                  <img src="/cart_icon.png" alt="mypage-icon" />
+                </span>
+                마이페이지
+              </Link>
+              <button onClick={logOut}>로그아웃</button>
+            </>
+          ) : (
+            <>
+              <Link className="user-menu" to="/login">
+                <span className="login-icon">
+                  <img src="/login_icon.png" alt="mypage-icon" />
+                </span>
+                로그인
+              </Link>
+              <Link className="user-menu" to="/signup">
+                <span className="user-icon">
+                  <img src="/user_icon.png" alt="mypage-icon" />
+                </span>
+                회원가입
+              </Link>
+            </>
+          )}
+          {/* <Link className="user-menu" to="/mypage">
             <span className="cart-icon">
               <img src="/cart_icon.png" alt="mypage-icon" />
             </span>
@@ -35,7 +69,7 @@ function Header() {
               <img src="/user_icon.png" alt="mypage-icon" />
             </span>
             회원가입
-          </Link>
+          </Link> */}
         </UserMenu>
       </Wrap>
       <Wrap className="menu">
