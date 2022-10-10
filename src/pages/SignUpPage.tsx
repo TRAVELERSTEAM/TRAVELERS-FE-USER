@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import {
   emailCertification,
@@ -11,6 +10,7 @@ import {
   signUpApi,
 } from '~/api/user/user';
 import KindOfTrip from '~/components/signup/KindOfTrip';
+import SignUpState from '~/components/signup/SignUpState';
 
 const group = ['5070끼리', '2040끼리', '남자끼리', '여자끼리', '자녀동반', '누구든지'];
 const area = [
@@ -39,17 +39,12 @@ export interface signUp {
   recommend?: string;
 }
 
-// const ProfileState = atom({
-//   key: 'profileImg',
-//   default: '/noprofile.png',
-// });
-
 function SignUp() {
-  // const [profile, setProfile] = useRecoilState(ProfileState);
-  const [profile, setProfile] = useState('/noprofile.png');
+  const [profile, setProfile] = useState('/basic-profile.png');
 
   const {
     register,
+    watch,
     handleSubmit,
     setError,
     formState: { errors },
@@ -78,6 +73,15 @@ function SignUp() {
   const { ref: profileRef, onChange: profileChange, ...profilelRest } = register('profile');
   const { ref: emailRef, ...emailRest } = register('email');
   const { ref: keyRef, ...keyRest } = register('key');
+
+  const watchUserName = watch('username');
+  const watchBirth = watch('birth');
+  const watchTel = watch('tel');
+  const watchGender = watch('gender');
+  const watchEmail = watch('email');
+  const watchKey = watch('key');
+  const watchPassword = watch('password');
+  const watchConfirmPassword = watch('confirmPassword');
 
   const {
     mutate: signUp,
@@ -118,274 +122,469 @@ function SignUp() {
   if (isLoading) return <div>loading...</div>;
   if (isError) return <div>error...</div>;
   return (
-    <SignUpContainer onSubmit={handleSubmit(onSubmit)}>
-      <article>
-        <img src={profile} alt="사용자 이미지" />
-        <input
-          {...profilelRest}
-          onChange={(e) => onAddProfile(e)}
-          type="file"
-          ref={(e) => {
-            profileRef(e);
-            addProfile.current = e;
-          }}
-          className="hidden"
-        />
-        <button
-          className="btn-modify"
-          onClick={(e) => {
-            e.preventDefault();
-            addProfile.current?.click();
-          }}
+    <Container>
+      <SignUpState signUpPage="on" successSignUp="off" />
+      <SignUpContainer onSubmit={handleSubmit(onSubmit)}>
+        <ProfileBox>
+          <img src={profile} alt="사용자 이미지" />
+          <input
+            {...profilelRest}
+            onChange={(e) => onAddProfile(e)}
+            type="file"
+            ref={(e) => {
+              profileRef(e);
+              addProfile.current = e;
+            }}
+          />
+          <AddProfileButton
+            className="btn-modify"
+            onClick={(e) => {
+              e.preventDefault();
+              addProfile.current?.click();
+            }}
+          />
+        </ProfileBox>
+        <SignUpExplanation>
+          <p>반갑습니다!</p>
+          <p>로그인하면 예약을 더 쉽고 빠르게 할 수 있습니다.</p>
+          <p>
+            ※ 생년월일, 성별, 취미, 선호 유형 그룹을 입력하면 비슷한 유형의 여행 그룹을 추천해
+            드립니다.
+          </p>
+        </SignUpExplanation>
+        <InputBox>
+          <label>
+            이름<span>*</span>
+          </label>
+          <input
+            {...register('username', { required: true })}
+            type="text"
+            placeholder="이름을 입력해주세요."
+          />
+          <RadioBox>
+            <RadioItem className="radio-left">
+              <input
+                {...register('gender', {
+                  required: true,
+                })}
+                value="MALE"
+                type="radio"
+                name="gender"
+                id="male"
+              />
+              <label htmlFor="male">남</label>
+            </RadioItem>
+            <RadioItem className="radio-right">
+              <input
+                {...register('gender', {
+                  required: true,
+                })}
+                value="FEMALE"
+                type="radio"
+                name="gender"
+                id="female"
+              />
+              <label htmlFor="female">여</label>
+            </RadioItem>
+          </RadioBox>
+        </InputBox>
+        <InputBox>
+          <label>
+            생년월일<span>*</span>
+          </label>
+          <input
+            {...register('birth', {
+              required: true,
+            })}
+            type="text"
+            placeholder="생일을 입력해 주세요. (예: 19500101)"
+          />
+        </InputBox>
+        <InputBox>
+          <label>
+            휴대번호<span>*</span>
+          </label>
+          <input
+            {...register('tel', {
+              required: true,
+            })}
+            type="text"
+            placeholder="휴대폰번호를 입력해 주세요. (예: 01012345678)"
+          />
+        </InputBox>
+        <InputBox>
+          <label>
+            이메일(아이디)<span>*</span>
+          </label>
+          <input
+            {...emailRest}
+            {...register('email', {
+              required: true,
+              pattern: {
+                value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                message: '올바른 이메일 형식이 아닙니다.',
+              },
+            })}
+            type="email"
+            placeholder="이메일(아이디)"
+            ref={(e) => {
+              emailRef(e);
+              emailAuth.current = e;
+            }}
+          />
+          <SucessButton
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(emailAuth.current?.value);
+              emailCertificate({ email: emailAuth.current?.value as string });
+            }}
+            disabled={!watchEmail}
+          >
+            인증하기
+          </SucessButton>
+        </InputBox>
+        <InputBox>
+          <label>
+            이메일 인증<span>*</span>
+          </label>
+          <input
+            {...keyRest}
+            {...register('key', {
+              required: true,
+            })}
+            type="text"
+            ref={(e) => {
+              keyRef(e);
+              emailKey.current = e;
+            }}
+            placeholder="이메일 인증번호를 입력해 주세요"
+          />
+          <SucessButton
+            onClick={(e) => {
+              e.preventDefault();
+              emailkey({
+                email: emailAuth.current?.value as string,
+                key: emailKey.current?.value as string,
+              });
+            }}
+            disabled={!watchKey}
+          >
+            인증 확인
+          </SucessButton>
+        </InputBox>
+        <InputBox>
+          <label>
+            비밀번호<span>*</span>
+          </label>
+          <input
+            {...register('password', { required: true })}
+            type="password"
+            autoComplete="on"
+            placeholder="비밀번호를 입력해 주세요."
+          />
+          <span>{errors?.password?.message}</span>
+        </InputBox>
+        <InputBox className="last-box">
+          <label>
+            비밀번호 확인<span>*</span>
+          </label>
+          <input
+            {...register('confirmPassword', {
+              required: true,
+            })}
+            type="password"
+            autoComplete="on"
+            placeholder="비밀번호를 한 번 더 입력해주세요."
+          />
+          <span>{errors?.confirmPassword?.message}</span>
+        </InputBox>
+        <GroupBox>
+          <ul className="group">
+            <p>그룹별 여행</p>
+            {group.map((item, index) => (
+              <KindOfTrip item={item} key={index} name="groupTrip" register={register} />
+            ))}
+          </ul>
+          <ul className="group group-center">
+            <p>지역별 여행</p>
+            {area.map((item, index) => (
+              <KindOfTrip item={item} key={index} name="area" register={register} />
+            ))}
+          </ul>
+          <ul className="group">
+            <p>테마별 여행</p>
+            {theme.map((item, index) => (
+              <KindOfTrip item={item} key={index} name="theme" register={register} />
+            ))}
+          </ul>
+        </GroupBox>
+        <RecommendBox>
+          <label>추천인</label>
+          <input {...register('recommend')} type="text" placeholder="추천인 코드를 입력하세요." />
+        </RecommendBox>
+        <SignUpButton
+          disabled={
+            !(
+              watchUserName &&
+              watchBirth &&
+              watchGender &&
+              watchTel &&
+              watchEmail &&
+              watchKey &&
+              watchPassword &&
+              watchConfirmPassword
+            )
+          }
         >
-          이미지 변경
-        </button>
-      </article>
-      <div>
-        <p>반갑습니다!</p>
-        <p>로그인하면 예약을 더 쉽고 빠르게 할 수 있습니다.</p>
-        <p>
-          ※ 생년월일, 성별, 취미, 선호 유형 그룹을 입력하면 비슷한 유형의 여행 그룹을 추천해
-          드립니다.
-        </p>
-      </div>
-      <article>
-        <label>이름 *</label>
-        <input
-          {...register('username', { required: '이름을 입력해주세요' })}
-          type="text"
-          placeholder="이름을 입력해주세요."
-        />
-        <span>{errors?.username?.message}</span>
-      </article>
-      <article>
-        <div>
-          <input {...register('gender')} value="MALE" type="radio" name="gender" id="male" />
-          <label htmlFor="male">남</label>
-        </div>
-        <div>
-          <input {...register('gender')} value="FEMALE" type="radio" name="gender" id="female" />
-          <label htmlFor="female">여</label>
-        </div>
-      </article>
-      <article>
-        <label>생년월일 *</label>
-        <input
-          {...register('birth', {
-            required: '생년월일을 입력해주세요.',
-          })}
-          type="text"
-          placeholder="생일을 입력해 주세요. (예: 19500101)"
-        />
-        <span>{errors?.birth?.message}</span>
-      </article>
-      <article>
-        <label>휴대번호 *</label>
-        <input
-          {...register('tel', {
-            required: '휴대폰번호를 입력해주세요.',
-          })}
-          type="text"
-          placeholder="휴대폰번호를 입력해 주세요. (예: 01012345678)"
-        />
-        <span>{errors?.tel?.message}</span>
-      </article>
-      <article>
-        <label>이메일(아이디) *</label>
-        <input
-          {...emailRest}
-          {...register('email', {
-            required: '이메일을 입력해주세요.',
-            pattern: {
-              value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: '올바른 이메일 형식이 아닙니다.',
-            },
-          })}
-          type="email"
-          placeholder="이메일(아이디)"
-          ref={(e) => {
-            emailRef(e);
-            emailAuth.current = e;
-          }}
-        />
-        <span>{errors?.email?.message}</span>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            console.log(emailAuth.current?.value);
-            emailCertificate({ email: emailAuth.current?.value as string });
-          }}
-        >
-          인증하기
-        </button>
-      </article>
-      <article>
-        <label>이메일 인증 *</label>
-        <input
-          {...keyRest}
-          {...register('key', {
-            required: '인증번호를 입력해주세요.',
-          })}
-          type="text"
-          ref={(e) => {
-            keyRef(e);
-            emailKey.current = e;
-          }}
-          placeholder="이메일 인증번호를 입력해 주세요"
-        />
-        <span>{errors?.key?.message}</span>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            emailkey({
-              email: emailAuth.current?.value as string,
-              key: emailKey.current?.value as string,
-            });
-          }}
-        >
-          인증 확인
-        </button>
-      </article>
-      <article>
-        <label>비밀번호 *</label>
-        <input
-          {...register('password', { required: true })}
-          type="password"
-          autoComplete="on"
-          placeholder="비밀번호를 입력해 주세요."
-        />
-        <span>{errors?.password?.message}</span>
-      </article>
-      <article>
-        <label>비밀번호 확인 *</label>
-        <input
-          {...register('confirmPassword', {
-            required: true,
-          })}
-          type="password"
-          autoComplete="on"
-          placeholder="비밀번호를 한 번 더 입력해주세요."
-        />
-        <span>{errors?.confirmPassword?.message}</span>
-      </article>
-      <article>
-        <div className="group">
-          <p>그룹별 여행</p>
-          {group.map((item, index) => (
-            <KindOfTrip item={item} key={index} name="groupTrip" register={register} />
-          ))}
-        </div>
-        <div className="area">
-          <p>지역별 여행</p>
-          {area.map((item, index) => (
-            <KindOfTrip item={item} key={index} name="area" register={register} />
-          ))}
-        </div>
-        <div className="theme">
-          <p>테마별 여행</p>
-          {theme.map((item, index) => (
-            <KindOfTrip item={item} key={index} name="theme" register={register} />
-          ))}
-        </div>
-      </article>
-      <article>
-        <label>추천인</label>
-        <input
-          {...register('recommend')}
-          type="text"
-          placeholder="추천인 코드를 입력하세요. (예: 19500101)"
-        />
-      </article>
-      <button>회원가입</button>
-    </SignUpContainer>
+          가입하기
+        </SignUpButton>
+        <Terms>
+          가입하시면 <span>이용약관</span>에 동의하게됩니다.
+        </Terms>
+      </SignUpContainer>
+    </Container>
   );
 }
 
 export default SignUp;
 
-const SignUpContainer = styled.form`
+const Container = styled.main`
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 80px;
+  margin-top: 100px;
+`;
+
+const SignUpContainer = styled.form`
+  display: flex;
+  width: 1220px;
   flex-direction: column;
 `;
 
-// const HelloLogin = styled.div`
-//   color: #939598;
-//   font-size: 24px;
-//   border-left: 6px solid #0080c6;
-//   padding-left: 10px;
-//   line-height: 120%;
-// `;
+const ProfileBox = styled.article`
+  margin: 0 auto 32px;
+  position: relative;
+  width: 174px;
+  height: 174px;
+  border-radius: 100%;
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+`;
 
-// const UserProfile = styled.div`
-//   display: flex;
-//   align-items: center;
-//   padding: 50px 0 38px;
-//   border-bottom: 1px solid #ebebeb;
-// `;
+const AddProfileButton = styled.button`
+  position: absolute;
+  bottom: 0;
+  right: -12px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  border: none;
+  outline: none;
+  background-image: url(/add-profile.png);
+  cursor: pointer;
+`;
 
-// const ProfileThumb = styled.div`
-//   flex: none;
-//   margin-right: 18px;
-//   width: 100px;
-//   height: 100px;
-//   border-radius: 100%;
-//   overflow: hidden;
-//   img {
-//     width: 100%;
-//     height: 100%;
-//   }
-// `;
+const SignUpExplanation = styled.div`
+  color: #939598;
+  font-size: 24px;
+  border-left: 6px solid #0080c6;
+  padding-left: 10px;
+  line-height: 120%;
+  margin-bottom: 44px;
+`;
 
-// const ProfileDetail = styled.div`
-//   .profile_btn_box {
-//     margin-top: 8px;
-//   }
-//   .hidden {
-//     /* display: none; */
-//     opacity: 0;
-//   }
-//   .btn_modify {
-//     margin-top: 0;
-//     &:last-child {
-//       margin-left: 8px;
-//     }
-//   }
-// `;
+const InputBox = styled.article`
+  width: 1220px;
+  height: 126px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #939598;
+  box-sizing: border-box;
+  position: relative;
+  &.last-box {
+    border-bottom: 1px solid #939598;
+  }
+  label {
+    width: 240px;
+    height: 100%;
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    padding-left: 28px;
+    font-size: 24px;
+    span {
+      margin-left: 10px;
+      transform: translateY(3px);
+    }
+  }
+  input {
+    width: 696px;
+    height: 78px;
+    margin-left: 18px;
+    border: 1px solid #939598;
+    border-radius: 10px;
+    color: #939598;
+    font-size: 24px;
+    padding-left: 14px;
+    box-sizing: border-box;
+  }
+`;
 
-// const RadioBox = styled.article`
-//   width: 198px;
-//   display: flex;
-//   border: 1px solid #939598;
-//   border-radius: 5px;
-//   box-sizing: border-box;
-// `;
+const RadioBox = styled.article`
+  position: absolute;
+  right: 0;
+  width: 198px;
+  height: 78px;
+  display: inline-flex;
+  border: 1px solid #939598;
+  border-radius: 10px;
+  box-sizing: border-box;
+`;
 
-// const RadioItem = styled.div`
-//   &:first-child {
-//     border-top-left-radius: 5px;
-//     border-bottom-left-radius: 5px;
-//   }
-//   input {
-//     display: none;
-//   }
-//   label {
-//     display: inline-flex;
-//     padding: 10px 20px;
-//     /* background-color: #858585; */
-//     font-size: 24px;
-//     color: #d1d1d1;
-//     text-align: center;
-//     transition: 0.2s ease;
-//     &:hover {
-//       background-color: #98ffb7;
-//       color: #000000;
-//     }
-//   }
-//   input:focus + label,
-//   input:checked + label {
-//     background-color: #0ac744;
-//     color: #000000;
-//   }
-// `;
+const RadioItem = styled.div`
+  width: 50%;
+  &.radio-left {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: 1px solid #939598;
+    label {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+  }
+  &.radio-right {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    label {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+  input {
+    display: none;
+  }
+  label {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    font-size: 24px;
+    color: #939598;
+    text-align: center;
+    transition: 0.2s ease;
+    cursor: pointer;
+    &:hover {
+      background-color: #f7f7f7;
+    }
+  }
+  input:focus + label,
+  input:checked + label {
+    background-color: #f7f7f7;
+  }
+`;
+
+const SucessButton = styled.button`
+  position: absolute;
+  right: 0;
+  width: 198px;
+  height: 78px;
+  border: 1px solid #939598;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 24px;
+  background-color: #ffffff;
+  color: #939598;
+  transition: 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: #f7f7f7;
+  }
+  &:disabled {
+    cursor: default;
+    background-color: #ffffff;
+  }
+`;
+
+const GroupBox = styled.article`
+  margin: 66px 0 182px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  .group {
+    padding: 10px 100px 40px 88px;
+    &:first-child,
+    &:last-child {
+      padding-left: 0;
+    }
+  }
+  .group-center {
+    border-left: 1px solid #939598;
+    border-right: 1px solid #939598;
+  }
+  p {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+`;
+
+const RecommendBox = styled.article`
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  input {
+    width: 998px;
+    height: 78px;
+    border: 1px solid #939598;
+    border-radius: 10px;
+    color: #939598;
+    font-size: 24px;
+    padding-left: 14px;
+    box-sizing: border-box;
+  }
+`;
+
+const SignUpButton = styled.button`
+  width: 998px;
+  height: 78px;
+  background-color: #0080c6;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 28px;
+  margin: 82px 0 14px;
+  cursor: pointer;
+  &:disabled {
+    background-color: #9da0a7;
+    cursor: default;
+  }
+`;
+
+const Terms = styled.p`
+  margin-bottom: 842px;
+  font-size: 26px;
+  transform: translateX(20%);
+  span {
+    color: #0080c6;
+  }
+`;
