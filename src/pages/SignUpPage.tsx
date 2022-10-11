@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import {
   emailCertification,
@@ -11,6 +13,7 @@ import {
 } from '~/api/user/user';
 import KindOfTrip from '~/components/signup/KindOfTrip';
 import SignUpState from '~/components/signup/SignUpState';
+import { Profile, UserName } from '~/utils/atom';
 
 const group = ['5070끼리', '2040끼리', '남자끼리', '여자끼리', '자녀동반', '누구든지'];
 const area = [
@@ -40,7 +43,7 @@ export interface signUp {
 }
 
 function SignUp() {
-  const [profile, setProfile] = useState('/basic-profile.png');
+  const [profile, setProfile] = useState('basic-profile.png');
 
   const {
     register,
@@ -83,11 +86,22 @@ function SignUp() {
   const watchPassword = watch('password');
   const watchConfirmPassword = watch('confirmPassword');
 
+  const setUserName = useSetRecoilState(UserName);
+  const setProfileUrl = useSetRecoilState(Profile);
+
   const {
     mutate: signUp,
     isLoading,
     isError,
-  } = useMutation('signup', (data: signUp) => signUpApi(data));
+  } = useMutation('signup', (data: signUp) => signUpApi(data), {
+    onSuccess: () => {
+      const localUserName: any = localStorage.getItem('username');
+      const localProfileUrl: any = localStorage.getItem('profile');
+      setUserName(localUserName);
+      setProfileUrl(localProfileUrl);
+      navigate('/signup-success');
+    },
+  });
 
   const { mutate: emailCertificate } = useMutation(
     'emailcertification',
@@ -97,6 +111,8 @@ function SignUp() {
   const { mutate: emailkey } = useMutation('emailkey', (data: emailVerifyState) =>
     emailVerify(data),
   );
+
+  const navigate = useNavigate();
 
   const onSubmit = (data: signUp) => {
     if (data.password !== data.confirmPassword) {

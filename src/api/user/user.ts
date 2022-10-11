@@ -54,7 +54,7 @@ export const signUpApi = async (payload: signUp) => {
   } = payload;
 
   const formData = new FormData();
-  formData.append('files', profile[0]);
+  formData.append('file', profile[0]);
 
   const body = {
     username,
@@ -75,7 +75,7 @@ export const signUpApi = async (payload: signUp) => {
 
   formData.append('request', blob);
 
-  const { data } = await axios({
+  const { data, status } = await axios({
     method: 'post',
     url: `${baseUrl}/register`,
     headers: {
@@ -84,7 +84,14 @@ export const signUpApi = async (payload: signUp) => {
     data: formData,
   });
 
-  return data;
+  console.log(data);
+  localStorage.setItem('username', data.username);
+  localStorage.setItem('profile', data.profile);
+
+  if (status === 409) {
+    alert('이미 존재하는 계정입니다.');
+  }
+  // return data;
 };
 
 export interface emailCertificationState {
