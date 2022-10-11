@@ -68,7 +68,7 @@ function App() {
           {/* 후기(임시보기) */}
           <Route path="review" element={<Review />} />
           {/* 회원가입 완료 페이지 */}
-          <Route path="signupsuccess" element={<SignUpSuccess />} />
+          <Route path="signup-success" element={<SignUpSuccess />} />
           {/* 자료실 */}
           <Route path="reference" element={<Reference />} />
           <Route path="*" element={<NotfoundPage />} />
