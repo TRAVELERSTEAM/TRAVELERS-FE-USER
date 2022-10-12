@@ -136,3 +136,26 @@ export const findEmailApi = async (payload: FindEmailState) => {
   localStorage.setItem('email', data.email);
   return data;
 };
+
+export interface FindPasswordState {
+  username: string;
+  gender: string;
+  birth: string;
+  tel: string;
+  email: string;
+  key: string;
+}
+
+export const findPasswordApi = async (payload: FindPasswordState) => {
+  const { username, gender, birth, tel, email, key } = payload;
+  const { data } = await axios.post(`${baseUrl}/find_password`, {
+    username,
+    gender,
+    birth,
+    tel,
+    email,
+    key,
+  });
+
+  return data;
+};
