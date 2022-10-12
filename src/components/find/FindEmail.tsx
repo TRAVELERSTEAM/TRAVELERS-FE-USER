@@ -13,7 +13,13 @@ function FindEmail() {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<FindEmailState>();
+  } = useForm<FindEmailState>({
+    defaultValues: {
+      username: '',
+      birth: '',
+      gender: '',
+    },
+  });
 
   const watchUserName = watch('username');
   const watchBirth = watch('birth');
