@@ -12,12 +12,16 @@ function MyPage() {
         <Page>
           <Inner>
             <Menu>
-              <p>내 정보</p>
-              <p>예약 및 취소 조회</p>
-              <p>찜 목록</p>
-              <Link to="inquiry">1:1 문의</Link>
-              <p>정보 수정</p>
-              <p>회원 탈퇴</p>
+              <p className="nav-list">내 정보</p>
+              <p className="nav-list">예약 및 취소 조회</p>
+              <p className="nav-list">찜 목록</p>
+              <Link to="inquiry" className="nav-list">
+                1:1 문의
+              </Link>
+              <Link to="editinfo" className="nav-list">
+                정보 수정
+              </Link>
+              <p className="nav-list">회원 탈퇴</p>
             </Menu>
           </Inner>
 
@@ -31,6 +35,7 @@ function MyPage() {
 export default MyPage;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,9 +59,18 @@ const Menu = styled.div`
   font-size: 25px;
   font-weight: 700;
   line-height: 47px;
+  display: flex;
+  flex-direction: column;
+  .nav-list {
+    color: #000000;
+    text-decoration: none;
+    transition: 0.2s;
+    &:hover {
+      color: #0080c6;
+    }
+  }
 `;
 
 const Page = styled.div`
   position: relative;
-  width: 1372px;
 `;
