@@ -100,7 +100,7 @@ export interface emailCertificationState {
 
 export const emailCertification = async (payload: emailCertificationState) => {
   const { email } = payload;
-  const { data } = await axios.post('http://www.gotogether.gq/verify', {
+  const { data } = await axios.post(`${baseUrl}/verify`, {
     email,
   });
   return data;
@@ -113,8 +113,26 @@ export interface emailVerifyState {
 
 export const emailVerify = async (payload: emailVerifyState) => {
   const { email, key } = payload;
-  const { data } = await axios.get(`http://www.gotogether.gq/verify/${email}/${key}`);
+  const { data } = await axios.get(`${baseUrl}/verify/${email}/${key}`);
   if (data.status === 200) {
     return data;
   }
+};
+
+export interface FindEmailState {
+  username: string;
+  gender: string;
+  birth: string;
+}
+
+export const findEmailApi = async (payload: FindEmailState) => {
+  const { username, gender, birth } = payload;
+  const { data } = await axios.post(`${baseUrl}/find_email`, {
+    username,
+    gender,
+    birth,
+  });
+
+  localStorage.setItem('email', data.email);
+  return data;
 };
