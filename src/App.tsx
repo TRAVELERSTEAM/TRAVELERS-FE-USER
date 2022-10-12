@@ -24,6 +24,7 @@ import Reference from './pages/Reference';
 // 후기 임시보기
 import Review from './components/Review.jsx';
 import ProductsByFilter from './components/ProductsByFilter';
+import FindEmailSuccess from './pages/FindEmailSuccess';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="product_detail/:id" element={<ProductDetailPage />} />
           {/* 아이디/비밀번호 찾기 페이지 */}
           <Route path="find" element={<Find />} />
+          <Route path="findemail-success" element={<FindEmailSuccess />} />
           {/* 마이페이지 */}
           <Route path="mypage" element={<MyPage />}>
             {/* -내정보 - 정보수정 - 회원탈퇴 - 찜목록 - 예약 및 취소 조회 - 1:1문의 */}
@@ -65,10 +67,10 @@ function App() {
           <Route path="notice" element={<Notice />} />
           {/* 회원가입 */}
           <Route path="signup" element={<SignUp />} />
-          {/* 후기(임시보기) */}
-          <Route path="review" element={<Review />} />
           {/* 회원가입 완료 페이지 */}
           <Route path="signup-success" element={<SignUpSuccess />} />
+          {/* 후기(임시보기) */}
+          <Route path="review" element={<Review />} />
           {/* 자료실 */}
           <Route path="reference" element={<Reference />} />
           <Route path="*" element={<NotfoundPage />} />
