@@ -14,3 +14,13 @@ export const isSuccessState = atom({
   key: 'isSuccess',
   default: false,
 });
+
+export const isFindEmail = atom({
+  key: 'isFindEmail',
+  default: localStorage.getItem('email'),
+});
+
+export const isFindEmailState = atom({
+  key: 'isFindEmailState',
+  default: false,
+});
