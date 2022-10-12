@@ -43,7 +43,7 @@ export interface signUp {
 }
 
 function SignUp() {
-  const [profile, setProfile] = useState('basic-profile.png');
+  const [profile, setProfile] = useState('');
 
   const {
     register,
@@ -142,7 +142,11 @@ function SignUp() {
       <SignUpState signUpPage="on" successSignUp="off" />
       <SignUpContainer onSubmit={handleSubmit(onSubmit)}>
         <ProfileBox>
-          <img src={profile} alt="사용자 이미지" />
+          {profile ? (
+            <img src={profile} alt="사용자 이미지" />
+          ) : (
+            <img src="/basic-profile.png" alt="사용자 이미지" />
+          )}
           <input
             {...profilelRest}
             onChange={(e) => onAddProfile(e)}
