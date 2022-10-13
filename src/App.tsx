@@ -18,6 +18,7 @@ import EditInfo from './pages/EditInfo';
 import SignUp from './pages/SignUpPage';
 import SignUpSuccess from './pages/SignUpSuccess';
 import Notice from './pages/Notice';
+import NoticeDetail from './pages/NoticeDetail';
 import Inquiry from './pages/Inquiry.jsx';
 import Reference from './pages/Reference';
 
@@ -65,6 +66,7 @@ function App() {
           <Route path="login" element={<Login />} />
           {/* 공지사항 */}
           <Route path="notice" element={<Notice />} />
+          <Route path="notice/:detailId" element={<NoticeDetail />} />
           {/* 회원가입 */}
           <Route path="signup" element={<SignUp />} />
           {/* 회원가입 완료 페이지 */}
