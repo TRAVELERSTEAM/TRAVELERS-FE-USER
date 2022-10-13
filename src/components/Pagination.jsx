@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import { noticeApi } from '../api/notice/notice';
 
 const Paging = () => {
   const [page, setPage] = useState(1);
+  const { data } = useQuery('notice', noticeApi);
 
   const handlePageChange = (page) => {
     setPage(page);

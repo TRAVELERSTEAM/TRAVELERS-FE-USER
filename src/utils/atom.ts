@@ -24,3 +24,8 @@ export const isFindEmailState = atom({
   key: 'isFindEmailState',
   default: false,
 });
+
+export const noticeId = atom({
+  key: 'noticeId',
+  default: null,
+});

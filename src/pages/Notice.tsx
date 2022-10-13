@@ -1,17 +1,17 @@
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import { noticeApi } from '../api/notice/notice';
+import { useRecoilState } from 'recoil';
+import { noticeId } from '../utils/atom';
 
 const Notice = () => {
   const navigate = useNavigate();
   const columns = ['번호', '제목', '글쓴이', '작성일자'];
-  const data = Array(7)
-    .fill()
-    .map(() => ({
-      title: '번째 게시물',
-      writer: '관리자',
-      date: '2022. 09 . 26',
-    }));
+  const { data } = useQuery('notice', noticeApi);
+  const [Id, setId] = useRecoilState(noticeId);
 
   return (
     <>
@@ -44,14 +44,22 @@ const Notice = () => {
           </Htr>
         </Thead>
         <Tbody>
-          {data.map(({ title, writer, date }, i) => (
-            <Btr key={title + writer + date + i}>
-              <Td>{i + 1}</Td>
-              <Td>{i + 1 + title}</Td>
-              <Td>{writer}</Td>
-              <Td>{date}</Td>
-            </Btr>
-          ))}
+          {data &&
+            data.contents?.map(({ sequence, title, writer, createdAt, id }) => (
+              <Btr key={id}>
+                <Td>{sequence}</Td>
+                <TitleTd
+                  onClick={() => {
+                    navigate(`${id}`);
+                    setId(id);
+                  }}
+                >
+                  {title}
+                </TitleTd>
+                <Td>{writer}</Td>
+                <Td>{createdAt}</Td>
+              </Btr>
+            ))}
         </Tbody>
       </Table>
       <Pagination />
@@ -160,4 +168,10 @@ export const Btr = styled.tr`
 export const Td = styled.td`
   font-size: 24px;
   font-weight: 500;
+`;
+
+export const TitleTd = styled.td`
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
 `;
