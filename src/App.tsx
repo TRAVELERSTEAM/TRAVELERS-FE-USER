@@ -54,7 +54,7 @@ function App() {
           {/* 마이페이지 */}
           <Route path="mypage" element={<MyPage />}>
             {/* -내정보 - 정보수정 - 회원탈퇴 - 찜목록 - 예약 및 취소 조회 - 1:1문의 */}
-            <Route path="myinfo" element={<MyInfo />} />
+            <Route index element={<MyInfo />} />
             <Route path="editinfo" element={<EditInfo />} />
             <Route path="delete_account" element={<DeleteAccount />} />
             <Route path="wishlist" element={<WishList />} />
