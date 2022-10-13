@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Header from './components/common/Header';
 import Main from '~/pages/MainPage';
@@ -21,17 +22,38 @@ import Notice from './pages/Notice';
 import NoticeDetail from './pages/NoticeDetail';
 import Inquiry from './pages/Inquiry.jsx';
 import Reference from './pages/Reference';
+import FindEmailSuccess from './pages/FindEmailSuccess';
 
 // 후기 임시보기
 import Review from './components/Review.jsx';
 import ProductsByFilter from './components/ProductsByFilter';
-import FindEmailSuccess from './pages/FindEmailSuccess';
+import { atom, useRecoilState } from 'recoil';
+
+export const isLoginState = atom({
+  key: 'isLogin',
+  default: false,
+});
 
 function App() {
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState);
+
+  const accessToken = localStorage.getItem('accessToken');
+  const loginState = () => {
+    if (accessToken) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  };
+
+  useEffect(() => {
+    loginState();
+  }, []);
+
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Header isLogin={isLogin} />
         <Routes>
           {/* 메인 */}
           <Route index element={<Main />} />

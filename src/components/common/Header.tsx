@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { logOut } from '~/api/user/user';
 
-function Header() {
+interface loginState {
+  isLogin: boolean;
+}
+
+function Header({ isLogin }: loginState) {
   return (
     <StyledHeader>
       <Wrap className="wrap">
@@ -18,24 +23,37 @@ function Header() {
           </div>
         </SearchArea>
         <UserMenu>
-          <Link className="user-menu" to="/mypage">
-            <span className="cart-icon">
-              <img src="/cart_icon.png" alt="mypage-icon" />
-            </span>
-            마이페이지
-          </Link>
-          <Link className="user-menu" to="/login">
-            <span className="login-icon">
-              <img src="/login_icon.png" alt="mypage-icon" />
-            </span>
-            로그인
-          </Link>
-          <Link className="user-menu" to="/signup">
-            <span className="user-icon">
-              <img src="/user_icon.png" alt="mypage-icon" />
-            </span>
-            회원가입
-          </Link>
+          {isLogin ? (
+            <>
+              <Link className="user-menu" to="/mypage">
+                <span className="cart-icon">
+                  <img src="/cart_icon.png" alt="mypage-icon" />
+                </span>
+                마이페이지
+              </Link>
+              <button onClick={logOut} className="user-menu btn">
+                <span className="logout-icon">
+                  <img src="/logout-icon.png" alt="mypage-icon" />
+                </span>
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <>
+              <Link className="user-menu" to="/login">
+                <span className="login-icon">
+                  <img src="/login_icon.png" alt="mypage-icon" />
+                </span>
+                로그인
+              </Link>
+              <Link className="user-menu" to="/signup">
+                <span className="user-icon">
+                  <img src="/user_icon.png" alt="mypage-icon" />
+                </span>
+                회원가입
+              </Link>
+            </>
+          )}
         </UserMenu>
       </Wrap>
       <Wrap className="menu">
@@ -156,6 +174,7 @@ const StyledHeader = styled.header`
     list-style: none;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
   }
   padding-top: 10px;
   width: 100%;
@@ -212,6 +231,11 @@ const UserMenu = styled.div`
     margin-right: 30px;
     font-size: 20px;
     color: #000;
+    &.btn {
+      border: none;
+      outline: none;
+      background-color: transparent;
+    }
     &:last-child {
       margin-right: 0;
     }
