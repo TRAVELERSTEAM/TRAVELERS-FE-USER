@@ -23,7 +23,9 @@ function MyPage() {
               <Link to="editinfo" className="nav-list">
                 정보 수정
               </Link>
-              <p className="nav-list">회원 탈퇴</p>
+              <Link to="delete-account" className="nav-list">
+                회원 탈퇴
+              </Link>
             </Menu>
           </Inner>
 
