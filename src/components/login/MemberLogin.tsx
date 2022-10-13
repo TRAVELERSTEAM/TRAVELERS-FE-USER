@@ -116,7 +116,7 @@ function MemberLogin() {
         />
         <ErrorMessage>{errors?.password?.message}</ErrorMessage>
       </InputBox>
-      <SaveButton className="save-button" onClick={onSave}>
+      {/* <SaveButton className="save-button" onClick={onSave}>
         <svg
           width="40"
           height="40"
@@ -130,7 +130,16 @@ function MemberLogin() {
           />
         </svg>
         <span>아이디 저장</span>
-      </SaveButton>
+      </SaveButton> */}
+      <ButtonBox>
+        <FindButton
+          onClick={() => {
+            navigate('/find');
+          }}
+        >
+          이메일 / 비밀번호 찾기
+        </FindButton>
+      </ButtonBox>
       <LoginButton disabled={!(watchEmail && watchPassword)}>로그인</LoginButton>
     </FormContainer>
   );
@@ -156,5 +165,24 @@ const SaveButton = styled.div`
         fill: #0080c6;
       }
     }
+  }
+`;
+
+const ButtonBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const FindButton = styled.button`
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 22px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    color: #0080c6;
   }
 `;
