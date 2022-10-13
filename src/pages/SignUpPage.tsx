@@ -15,8 +15,8 @@ import KindOfTrip from '~/components/signup/KindOfTrip';
 import SignUpState from '~/components/signup/SignUpState';
 import { Profile, UserName } from '~/utils/atom';
 
-const group = ['5070끼리', '2040끼리', '남자끼리', '여자끼리', '자녀동반', '누구든지'];
-const area = [
+export const group = ['5070끼리', '2040끼리', '남자끼리', '여자끼리', '자녀동반', '누구든지'];
+export const area = [
   '동남아 / 태평양',
   '인도 / 중앙아시아',
   '아프리카 / 중동',
@@ -24,7 +24,7 @@ const area = [
   '중남미 / 북미',
   '대만 / 중국 / 일본',
 ];
-const theme = ['문화탐방', '골프여행 ', '휴양지', '트레킹', '성지순례', '볼론투어'];
+export const theme = ['문화탐방', '골프여행 ', '휴양지', '트레킹', '성지순례', '볼론투어'];
 
 export interface signUp {
   profile: string;

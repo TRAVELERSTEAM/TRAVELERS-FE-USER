@@ -5,7 +5,7 @@ import Footer from '~/components/common/Footer';
 import MyPage from '~/pages/MyPage';
 import NotfoundPage from '~/pages/NotfoundPage';
 import ProductDetailPage from '~/pages/ProductDetailPage';
-import DeleteAccount from './components/MyPage/DeleteAccount';
+import DeleteAccount from './pages/DeleteAccount';
 import WishList from './components/MyPage/WishList';
 import Reservation from './components/MyPage/Reservation';
 import Destination from './pages/Destination';
@@ -55,9 +55,9 @@ function App() {
           {/* 마이페이지 */}
           <Route path="mypage" element={<MyPage />}>
             {/* -내정보 - 정보수정 - 회원탈퇴 - 찜목록 - 예약 및 취소 조회 - 1:1문의 */}
-            <Route path="myinfo" element={<MyInfo />} />
+            <Route index element={<MyInfo />} />
             <Route path="editinfo" element={<EditInfo />} />
-            <Route path="delete_account" element={<DeleteAccount />} />
+            <Route path="delete-account" element={<DeleteAccount />} />
             <Route path="wishlist" element={<WishList />} />
             <Route path="reservation" element={<Reservation />} />
             <Route path="inquiry" element={<Inquiry />} />

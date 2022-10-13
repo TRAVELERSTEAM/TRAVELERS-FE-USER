@@ -2,6 +2,7 @@ import axios from 'axios';
 import { memberLogin } from '~/components/login/MemberLogin';
 import { signUp } from '~/pages/SignUpPage';
 const baseUrl = import.meta.env.VITE_APP_BASE_URL;
+const token = import.meta.env.VITE_APP_TOKEN;
 
 export const loginApi = async (payload: memberLogin) => {
   const { email, password } = payload;
@@ -157,5 +158,88 @@ export const findPasswordApi = async (payload: FindPasswordState) => {
     key,
   });
 
+  return data;
+};
+
+export interface EditInfoState {
+  profile: string;
+  username: string;
+  birth: string;
+  gender: string;
+  tel: string;
+  email: string;
+  currentPassword?: string;
+  changePassword?: string;
+  confirmChangePassword?: string;
+  groupTrip?: string[];
+  area?: string[];
+  theme?: string[];
+}
+
+export const editInfoApi = async (payload: EditInfoState) => {
+  const {
+    profile,
+    username,
+    birth,
+    gender,
+    tel,
+    email,
+    currentPassword,
+    changePassword,
+    confirmChangePassword,
+    groupTrip,
+    area,
+    theme,
+  } = payload;
+
+  const formData = new FormData();
+  formData.append('file', profile[0]);
+
+  const body = {
+    username,
+    birth,
+    tel,
+    gender,
+    email,
+    currentPassword,
+    changePassword,
+    confirmChangePassword,
+    groupTrip,
+    area,
+    theme,
+  };
+
+  const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+
+  formData.append('request', blob);
+
+  const { data } = await axios({
+    method: 'put',
+    url: `${baseUrl}/user`,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+    data: formData,
+  });
+
+  return data;
+};
+
+export const myInfoApi = async () => {
+  const { data } = await axios.get(`${baseUrl}/user/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
+export const deleteAccountApi = async () => {
+  const { data } = await axios.delete(`${baseUrl}/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data;
 };
