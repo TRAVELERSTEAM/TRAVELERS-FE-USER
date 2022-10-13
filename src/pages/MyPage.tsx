@@ -12,7 +12,9 @@ function MyPage() {
         <Page>
           <Inner>
             <Menu>
-              <p className="nav-list">내 정보</p>
+              <Link to="" className="nav-list">
+                내 정보
+              </Link>
               <p className="nav-list">예약 및 취소 조회</p>
               <p className="nav-list">찜 목록</p>
               <Link to="inquiry" className="nav-list">
