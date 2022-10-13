@@ -234,3 +234,12 @@ export const myInfoApi = async () => {
   });
   return data;
 };
+
+export const deleteAccountApi = async () => {
+  const { data } = await axios.delete(`${baseUrl}/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
