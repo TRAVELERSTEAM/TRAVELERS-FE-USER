@@ -11,7 +11,7 @@ function EditInfo() {
     return myInfoApi();
   });
 
-  const [profile, setProfile] = useState('');
+  const [profile, setProfile] = useState(data?.profile);
 
   const { register, handleSubmit, setError, setValue } = useForm<EditInfoState>();
 
@@ -240,7 +240,6 @@ const Container = styled.main`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
 `;
 
 const H1 = styled.h1`
