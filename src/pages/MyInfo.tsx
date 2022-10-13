@@ -39,21 +39,21 @@ function MyInfo() {
             <ListBox>
               <ListItem>
                 <p>그룹</p>
-                {data?.groupTrip.map((item: any, index: any) => (
-                  <ItemBox key={index}>{item}</ItemBox>
-                ))}
+                {data?.groupTrip.map((item: any, index: any) =>
+                  item ? <ItemBox key={index}>{item}</ItemBox> : null,
+                )}
               </ListItem>
               <ListItem>
                 <p>지역</p>
-                {data?.area.map((item: any, index: any) => (
-                  <ItemBox key={index}>{item}</ItemBox>
-                ))}
+                {data?.area.map((item: any, index: any) =>
+                  item ? <ItemBox key={index}>{item}</ItemBox> : null,
+                )}
               </ListItem>
               <ListItem>
                 <p>테마</p>
-                {data?.theme.map((item: any, index: any) => (
-                  <ItemBox key={index}>{item}</ItemBox>
-                ))}
+                {data?.theme.map((item: any, index: any) =>
+                  item ? <ItemBox key={index}>{item}</ItemBox> : null,
+                )}
               </ListItem>
             </ListBox>
           </InfoList>
@@ -147,7 +147,7 @@ const ListItem = styled.ul`
   align-items: center;
   gap: 16px;
   p {
-    width: 100px;
+    max-width: 100px;
   }
 `;
 
@@ -161,4 +161,5 @@ const ItemBox = styled.li`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  white-space: nowrap;
 `;
