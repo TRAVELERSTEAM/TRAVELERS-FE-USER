@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { memberLogin } from '~/components/login/MemberLogin';
 import { signUp } from '~/pages/SignUpPage';
-import { setCookie } from '~/utils/cookie';
 const baseUrl = import.meta.env.VITE_APP_BASE_URL;
-const token = import.meta.env.VITE_APP_TOKEN;
+// const token = import.meta.env.VITE_APP_TOKEN;
+const token = localStorage.getItem('accessToken');
 
 export const loginApi = async (payload: memberLogin) => {
   const { email, password } = payload;
-  const { data } = await axios.post(
+  const { data, status } = await axios.post(
     `${baseUrl}/login`,
     {
       email,
@@ -20,24 +20,26 @@ export const loginApi = async (payload: memberLogin) => {
   console.log(data);
   axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
 
-  setCookie(data.refreshToken);
+  localStorage.setItem('accessToken', data.accessToken);
+  localStorage.setItem('refreshToken', data.refreshToken);
 
-  if (data.status === 401) {
+  if (status === 401) {
     alert('아이디 또는 비밀번호를 확인해주세요');
   }
   // 엑세스토큰 만료시 재요청
-  if (
-    // axios.defaults.headers.common['Authorization'] === undefined ||
-    // data.refreshToken === undefined
-    data.status === 500
-  ) {
+  if (data.status === 500) {
     await reissueApi(data);
   }
 
   return data;
 };
 
-interface token {
+export const logOut = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+};
+
+export interface token {
   accessToken: string;
   refreshToken: string;
 }
@@ -48,9 +50,16 @@ const reissueApi = async (payload: token) => {
     accessToken,
     refreshToken,
   });
-
-  axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
   return data;
+};
+
+export const checkToken = async (payload: token) => {
+  const { accessToken, refreshToken } = payload;
+  if (axios.defaults.headers.common['Authorization'] === undefined) {
+    return await reissueApi({ accessToken, refreshToken });
+  } else {
+    return axios.defaults.headers.common['Authorization'] === ' ';
+  }
 };
 
 export const signUpApi = async (payload: signUp) => {

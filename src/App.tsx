@@ -26,8 +26,6 @@ import FindEmailSuccess from './pages/FindEmailSuccess';
 // 후기 임시보기
 import Review from './components/Review.jsx';
 import ProductsByFilter from './components/ProductsByFilter';
-
-import { getCookieToken, removeCookie } from './utils/cookie';
 import { atom, useRecoilState } from 'recoil';
 
 export const isLoginState = atom({
@@ -37,21 +35,15 @@ export const isLoginState = atom({
 
 function App() {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
-  // const [isLogin, setIsLogin] = useState(false);
 
+  const accessToken = localStorage.getItem('accessToken');
   const loginState = () => {
-    const cookie = getCookieToken();
-    console.log(cookie);
-    if (cookie) {
+    if (accessToken) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
     }
   };
-
-  // const logOut = () => {
-  //   removeCookie();
-  // };
 
   useEffect(() => {
     loginState();
@@ -60,7 +52,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {/* {isLogin ? <button onClick={logOut}>로그아웃</button> : <Header />} */}
         <Header isLogin={isLogin} />
         <Routes>
           {/* 메인 */}

@@ -8,18 +8,12 @@ import {
   LoginButton,
   LoginInput,
 } from '~/style/LoginCommonStyle';
-import { useCookies } from 'react-cookie';
-import { atom, useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useMutation } from 'react-query';
 import { loginApi } from '~/api/user/user';
 import { useNavigate } from 'react-router-dom';
 import { isLoginState } from '~/App';
 import { getCookieToken } from '~/utils/cookie';
-
-// export const isCookieAtom = atom({
-//   key: 'isCookie',
-//   default: false,
-// });
 
 export interface memberLogin {
   email: string;
@@ -38,9 +32,6 @@ function MemberLogin() {
     loginApi(data),
   );
 
-  // const [cookies, setCookie, removeCookie] = useCookies(['email']);
-  // const setCookieAtom = useSetRecoilState(isCookieAtom);
-  // const toggleCookie = setCookieAtom((prev) => !prev);
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
 
   const navigate = useNavigate();
@@ -50,37 +41,19 @@ function MemberLogin() {
 
   const onSubmit = (data: memberLogin) => {
     mutate(data);
-    // navigate('/');
+    navigate('/');
   };
 
   const updateLoginState = () => {
+    const token = localStorage.getItem('accessToken');
     const cookie = getCookieToken();
     console.log(cookie);
-    if (cookie) {
+    if (token) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
     }
   };
-
-  const onSave = () => {
-    const saveButton = document.querySelector('.save-button');
-    saveButton!.classList.toggle('active');
-    // toggleCookie;
-    // console.log(toggleCookie);
-  };
-
-  // const loginCheck = () => {
-  //   // const cookie = cookies.email;
-  // };
-
-  // useEffect(() => {
-  //   loginCheck();
-  // });
-
-  // const logOut = () => {
-  //   // removeCookie('email');
-  // };
 
   useEffect(() => {
     updateLoginState();
@@ -116,21 +89,6 @@ function MemberLogin() {
         />
         <ErrorMessage>{errors?.password?.message}</ErrorMessage>
       </InputBox>
-      {/* <SaveButton className="save-button" onClick={onSave}>
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20.0026 3.33301C10.8026 3.33301 3.33594 10.7997 3.33594 19.9997C3.33594 29.1997 10.8026 36.6663 20.0026 36.6663C29.2026 36.6663 36.6693 29.1997 36.6693 19.9997C36.6693 10.7997 29.2026 3.33301 20.0026 3.33301ZM20.0026 33.333C12.6526 33.333 6.66927 27.3497 6.66927 19.9997C6.66927 12.6497 12.6526 6.66634 20.0026 6.66634C27.3526 6.66634 33.3359 12.6497 33.3359 19.9997C33.3359 27.3497 27.3526 33.333 20.0026 33.333ZM27.6526 12.633L16.6693 23.6163L12.3526 19.3163L10.0026 21.6663L16.6693 28.333L30.0026 14.9997L27.6526 12.633Z"
-            fill="#757575"
-          />
-        </svg>
-        <span>아이디 저장</span>
-      </SaveButton> */}
       <ButtonBox>
         <FindButton
           onClick={() => {
